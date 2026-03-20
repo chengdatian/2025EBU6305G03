@@ -8,7 +8,7 @@
   |---------------|-----------------|---------------|---------------------------|
   | Yutian Cheng   | chengdatian     | 231224424  | Homepage (Marketing Page) |
   | Sicheng Meng   | Meng-1211       | 231224240| Game Module Page      |
-  | Shu chen       | |   | Learning Module Page          |
+  | Shu chen       | CS693          | 221171615  | Learning Module Page          |
   | Jiefu Dong    | FU0719          | 2321224538| Test Module Page          |
   | Fei Meng      | fanyuxx         | 231224103  | Community Module Page     |
 - Assigned TA: Yingnan Zhou
