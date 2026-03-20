@@ -7,8 +7,8 @@
   | Name          | GitHub Username | QMID          | Responsible Page          |
   |---------------|-----------------|---------------|---------------------------|
   | Yutian Cheng   | chengdatian     | 231224424  | Homepage (Marketing Page) |
-  | Sicheng Meng   | Meng-1211       | 231224240| Learning Module Page      |
-  | Shu chen       | |   | Game Module Page          |
+  | Sicheng Meng   | Meng-1211       | 231224240| Game Module Page      |
+  | Shu chen       | |   | Learning Module Page          |
   | Jiefu Dong    | FU0719          | 2321224538| Test Module Page          |
   | Fei Meng      | fanyuxx         | 231224103  | Community Module Page     |
 - Assigned TA: Yingnan Zhou
