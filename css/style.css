@@ -1,0 +1,75 @@
+/* 全局统一样式 - G03 v1 版本，全组共用 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+/* 全局容器 - 沿用你数学小游戏的绿色框架 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #90EE90; /* 浅绿色背景，和你之前的游戏界面一致 */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* 导航栏样式 */
+.navbar {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.navbar a {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #ff0000; /* 红色按钮，和你之前的数字按钮一致 */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px; /* 圆形按钮，风格统一 */
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  background-color: #cc0000;
+}
+
+/* 标题栏样式 */
+.header {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* 内容区样式 */
+.content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* 底部样式 */
+.footer {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+}
