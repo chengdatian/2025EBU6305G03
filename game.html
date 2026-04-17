@@ -8,17 +8,35 @@
 </head>
 <body>
 <div class="container">
-<div class="navbar">
-<a href="homepage.html">Home</a>
-<a href="learning.html">Learning</a>
-<a href="game.html">Game</a>
-<a href="test.html">Test</a>
-<a href="community.html">Community</a>
-<a href="support.html">Support</a>
-</div>
-<div class="header">Home → Game Module</div>
-<div class="content">Color Matching, Contrast Challenge, Coding Practice!</div>
-<div class="footer">© 2026 EBU6305 Group G03</div>
+  <div class="navbar">
+    <a href="homepage.html">Home</a>
+    <a href="learning.html">Learning</a>
+    <a href="game.html">Game</a>
+    <a href="test.html">Test</a>
+    <a href="community.html">Community</a>
+    <a href="support.html">Support</a>
+  </div>
+
+  <div class="header">Game Module | Interactive Color Learning</div>
+
+  <div class="content">
+    <p>Through interesting mini-games, help users memorize color codes and color rules.</p>
+    <button onclick="document.getElementById('gameTip').innerText='Game function will be fully launched in V3'">
+      Click to view game preview
+    </button>
+    <p id="gameTip" style="margin-top: 15px; font-weight: bold;"></p>
+
+    <div style="margin-top: 25px;">
+      <p>Current Development Progress</p>
+      <div style="background: #ddd; border-radius: 10px; margin-top: 10px;">
+        <div style="width: 60%; background: #e60000; color: #fff; padding: 6px; border-radius: 10px;">
+          Overall Progress: 60%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">© 2026 EBU6305 Group G03</div>
 </div>
 </body>
 </html>

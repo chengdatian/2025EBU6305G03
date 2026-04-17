@@ -8,17 +8,41 @@
 </head>
 <body>
 <div class="container">
-<div class="navbar">
-<a href="homepage.html">Home</a>
-<a href="learning.html">Learning</a>
-<a href="game.html">Game</a>
-<a href="test.html">Test</a>
-<a href="community.html">Community</a>
-<a href="support.html">Support</a>
+  <div class="navbar">
+    <a href="homepage.html">Home</a>
+    <a href="learning.html">Learning</a>
+    <a href="game.html">Game</a>
+    <a href="test.html">Test</a>
+    <a href="community.html">Community</a>
+    <a href="support.html">Support</a>
+  </div>
+
+  <div class="header">Test Module | Color Coding Quiz</div>
+
+  <div class="content">
+    <p style="font-size: 18px;">Question: What is the standard RGB value of pure red?</p>
+    <div style="margin-top: 20px;">
+      <button onclick="showResult(false)">0, 255, 0</button>
+      <button onclick="showResult(true)">255, 0, 0</button>
+      <button onclick="showResult(false)">0, 0, 255</button>
+    </div>
+    <p id="resultText" style="margin-top: 20px; font-size: 18px; font-weight: bold;"></p>
+  </div>
+
+  <div class="footer">© 2026 EBU6305 Group G03</div>
 </div>
-<div class="header">Home → Test Module</div>
-<div class="content">Color Coding Quiz！, Assessment, Feedback</div>
-<div class="footer">© 2026 EBU6305 Group G03</div>
-</div>
+
+<script>
+function showResult(isCorrect) {
+  const res = document.getElementById("resultText");
+  if(isCorrect) {
+    res.innerText = "✅ Correct! You master the RGB basic knowledge";
+    res.style.color = "green";
+  } else {
+    res.innerText = "❌ Wrong answer, please try again";
+    res.style.color = "red";
+  }
+}
+</script>
 </body>
 </html>
