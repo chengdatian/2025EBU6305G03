@@ -1,48 +1,1130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Test - Color Coding G03</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Assessment - Color Coding G03 V4.0 | Professional Color Certification</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 测试模块专属升级样式，全局样式已在style.css完成 */
+    .test-tab {
+      animation: fadeUp 0.6s ease forwards;
+    }
+    input[type="radio"] {
+      transform: scale(1.3);
+      margin-right: 12px;
+      accent-color: var(--accent-500);
+      cursor: pointer;
+    }
+    .option-label {
+      display: block;
+      margin: 14px 0;
+      padding: 16px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      border: 2px solid transparent;
+      transition: var(--transition-bounce);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .option-label:hover {
+      border-color: var(--accent-400);
+      transform: translateX(8px);
+      box-shadow: var(--shadow-sm);
+    }
+    .option-label:has(input:checked) {
+      background: var(--gradient-main);
+      color: white;
+      border-color: var(--accent-500);
+      box-shadow: var(--shadow-glow-accent);
+    }
+    .error-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+    }
+    .error-list li {
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-left: 5px solid var(--danger-500);
+      margin: 12px 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--bg-glass-border);
+      transition: var(--transition-bounce);
+    }
+    .error-list li:hover {
+      transform: translateX(8px);
+      box-shadow: var(--shadow-md);
+    }
+    .question-progress {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .q-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-xs);
+      background: var(--bg-overlay);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    .q-dot.active {
+      background: var(--gradient-main);
+      color: white;
+      box-shadow: var(--shadow-glow-accent);
+    }
+    .q-dot.correct {
+      background: var(--gradient-success);
+      color: white;
+    }
+    .q-dot.wrong {
+      background: var(--gradient-danger);
+      color: white;
+    }
+    .timer-danger {
+      color: var(--danger-500);
+      animation: timerBlink 1s ease infinite;
+      font-weight: 900;
+    }
+    @keyframes timerBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .star-rating {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px 0;
+      font-size: 40px;
+      color: #fbbf24;
+    }
+    .practice-category {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .category-btn {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
+      border: 1px solid var(--bg-glass-border);
+      color: var(--text-main);
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-bounce);
+    }
+    .category-btn:hover {
+      transform: translateY(-4px);
+      background: var(--gradient-main);
+      color: white;
+      box-shadow: var(--shadow-glow-accent);
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <div class="navbar">
-    <a href="homepage.html">Home</a>
-    <a href="learning.html">Learning</a>
-    <a href="game.html">Game</a>
-    <a href="test.html">Test</a>
-    <a href="community.html">Community</a>
-    <a href="support.html">Support</a>
-  </div>
-
-  <div class="header">Test Module | Color Coding Quiz</div>
-
-  <div class="content">
-    <p style="font-size: 18px;">Question: What is the standard RGB value of pure red?</p>
-    <div style="margin-top: 20px;">
-      <button onclick="showResult(false)">0, 255, 0</button>
-      <button onclick="showResult(true)">255, 0, 0</button>
-      <button onclick="showResult(false)">0, 0, 255</button>
+  <div class="container">
+    <!-- 导航栏（与全站V4.0完全统一） -->
+    <div class="navbar">
+      <a href="homepage.html">Home</a>
+      <a href="learning.html">Learning</a>
+      <a href="game.html">Game</a>
+      <a href="test.html" class="active">Test</a>
+      <a href="community.html">Community</a>
+      <a href="support.html">Support</a>
+      <button onclick="toggleDarkMode()" class="btn" style="padding:8px 12px;">
+        <i class="fas fa-moon" id="dark-icon"></i>
+      </button>
+      <button onclick="openThemePicker()" class="btn" style="padding:8px 12px;">
+        <i class="fas fa-palette"></i>
+      </button>
+      <button onclick="toggleAudio()" class="btn" style="padding:8px 12px;">
+        <i class="fas fa-volume-up" id="audio-icon"></i>
+      </button>
     </div>
-    <p id="resultText" style="margin-top: 20px; font-size: 18px; font-weight: bold;"></p>
+
+    <!-- 头部（史诗级升级） -->
+    <div class="header fade-in">
+      <i class="fas fa-file-alt"></i> Test Module | Professional Color Certification
+    </div>
+
+    <!-- 核心内容区 -->
+    <div class="content fade-in">
+      <!-- 测试选项卡 -->
+      <div style="display: flex; border-bottom: 2px solid var(--accent-400); margin-bottom: 24px; flex-wrap: wrap; gap: 6px;">
+        <button class="tab-btn" onclick="switchTestTab('quiz')" style="background: var(--accent-500); color:white;">
+          <i class="fas fa-pen-to-square"></i> Formal Quiz
+        </button>
+        <button class="tab-btn" onclick="switchTestTab('practice')">
+          <i class="fas fa-bullseye"></i> Practice Test
+        </button>
+        <button class="tab-btn" onclick="switchTestTab('review')">
+          <i class="fas fa-circle-xmark"></i> Wrong Review
+        </button>
+        <button class="tab-btn" onclick="switchTestTab('stats')">
+          <i class="fas fa-chart-simple"></i> Test Statistics
+        </button>
+      </div>
+
+      <!-- ===================== 正式答题模块（全面升级） ===================== -->
+      <div id="quiz-tab" class="test-tab">
+        <div class="card">
+          <h3><i class="fas fa-pen-fancy" style="color:var(--accent-500);"></i> 📝 Formal Color Coding Certification Quiz</h3>
+          
+          <!-- 考试设置 -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+            <div>
+              <label style="font-weight:700;"><i class="fas fa-layer-group"></i> Difficulty & Time Limit:</label>
+              <select id="test-diff" onchange="setTestDiff()" style="padding:10px 14px; border-radius:var(--radius-md); border:2px solid var(--bg-glass-border); background:var(--bg-glass); color:var(--text-main); font-weight:600; margin-left:8px;">
+                <option value="easy">Easy (5 Questions · 10 Mins)</option>
+                <option value="medium">Medium (10 Questions · 15 Mins)</option>
+                <option value="hard">Hard (15 Questions · 20 Mins)</option>
+                <option value="expert">Expert (20 Questions · 30 Mins)</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button onclick="startTest()" class="btn-success"><i class="fas fa-play"></i> Start Test</button>
+              <button onclick="endTest()" class="btn-danger"><i class="fas fa-stop"></i> End Test</button>
+            </div>
+          </div>
+
+          <!-- 考试规则 -->
+          <div id="test-rules" style="padding:20px; background:var(--bg-elevated); border-radius:var(--radius-md); margin-bottom:24px; border:1px solid var(--bg-glass-border);">
+            <h4 style="font-weight:700;"><i class="fas fa-info-circle"></i> Exam Rules</h4>
+            <ul style="padding-left:20px; line-height:1.8; margin-top:10px;">
+              <li>Once the test starts, the timer will not pause (except for page refresh)</li>
+              <li>Each correct answer gives 10 points, no points deducted for wrong answers</li>
+              <li>You can review and change your answers before submitting</li>
+              <li>Passing score: 60 points, certificate available for 80+ points</li>
+              <li>All questions are based on the official learning curriculum</li>
+            </ul>
+          </div>
+
+          <!-- 考试统计栏 -->
+          <div class="game-stats">
+            <div><i class="fas fa-star"></i> Score: <span id="test-score" style="font-size:20px; font-weight:900;">0</span></div>
+            <div><i class="fas fa-clock"></i> Time Left: <span id="test-time" style="font-size:20px; font-weight:900;">0</span>s</div>
+            <div><i class="fas fa-question"></i> Question: <span id="test-current" style="font-size:20px; font-weight:900;">0</span>/<span id="test-total" style="font-size:20px; font-weight:900;">0</span></div>
+          </div>
+
+          <!-- 题目进度指示器 -->
+          <div id="question-progress" class="question-progress" style="display:none;"></div>
+
+          <!-- 题目区域 -->
+          <div id="test-question" class="card" style="display:none; padding:30px; background:var(--bg-elevated);">
+            <h4 id="q-title" style="font-size:20px; font-weight:700; line-height:1.6; margin-bottom:24px;"></h4>
+            <div id="q-options" style="margin:24px 0;"></div>
+            <div style="display:flex; justify-content:space-between; gap:16px; margin-top:30px;">
+              <button onclick="prevQuestion()" class="btn-warning" style="width:48%;"><i class="fas fa-chevron-left"></i> Previous Question</button>
+              <button onclick="nextQuestion()" class="btn-accent" style="width:48%;">Next Question <i class="fas fa-chevron-right"></i></button>
+            </div>
+            <button onclick="submitTest()" class="btn-success" style="width:100%; margin-top:16px;"><i class="fas fa-paper-plane"></i> Submit Final Answers</button>
+          </div>
+
+          <!-- 考试结果区域（升级：星级评分、证书生成） -->
+          <div id="test-result" style="display:none; text-align:center; padding:30px;">
+            <div class="star-rating" id="star-rating"></div>
+            <h3><i class="fas fa-trophy" style="color:var(--warning-500);"></i> 🎉 Test Completed!</h3>
+            <p>Final Score: <span id="final-score" style="color:var(--accent-500);font-size:32px; font-weight:900;"></span></p>
+            <p style="font-size:18px; margin:12px 0;">
+              Correct: <span id="correct-count" style="color:var(--success-500); font-weight:700;"></span> | 
+              Wrong: <span id="wrong-count" style="color:var(--danger-500); font-weight:700;"></span>
+            </p>
+            <p style="font-size:18px;">Accuracy: <span id="accuracy" style="font-weight:900;"></span>%</p>
+            <p id="result-comment" style="font-size:18px; font-weight:700; margin:20px 0;"></p>
+            
+            <div style="margin-top:30px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+              <button onclick="restartTest()" class="btn-accent"><i class="fas fa-rotate-right"></i> Retake Test</button>
+              <button onclick="switchTestTab('review')" class="btn-warning"><i class="fas fa-book"></i> Review Wrong Questions</button>
+              <button id="cert-btn" onclick="generateCertificate()" class="btn-success" style="display:none;"><i class="fas fa-certificate"></i> Generate Certificate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 练习模式模块（全面升级：专项练习） ===================== -->
+      <div id="practice-tab" class="test-tab" style="display:none;">
+        <div class="card">
+          <h3><i class="fas fa-bullseye" style="color:var(--success-500);"></i> 🎯 Practice Mode (Unlimited)</h3>
+          <p>Practice color coding questions without time limit! Learn at your own pace with targeted practice.</p>
+          
+          <!-- 专项练习分类 -->
+          <h4 style="margin-top:24px; font-weight:700;">Select Practice Category</h4>
+          <div class="practice-category">
+            <button class="category-btn" onclick="setPracticeCategory('all')">All Questions</button>
+            <button class="category-btn" onclick="setPracticeCategory('rgb')">RGB Model</button>
+            <button class="category-btn" onclick="setPracticeCategory('hex')">Hex Code</button>
+            <button class="category-btn" onclick="setPracticeCategory('cmyk')">CMYK Model</button>
+            <button class="category-btn" onclick="setPracticeCategory('hsl')">HSL Model</button>
+            <button class="category-btn" onclick="setPracticeCategory('accessibility')">Accessibility</button>
+          </div>
+
+          <button onclick="startPractice()" class="btn-success" style="width:100%; margin-top:16px;"><i class="fas fa-play"></i> Start Practice</button>
+          
+          <!-- 练习题目区域 -->
+          <div id="practice-box" style="margin:24px 0;display:none; text-align:center;">
+            <h4 id="p-q" style="font-size:20px; font-weight:700; line-height:1.6;"></h4>
+            <div id="p-options" style="margin:24px 0;"></div>
+            <p id="p-res" style="font-weight:900;margin-top:20px; font-size:20px; min-height:28px;"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 错题回顾模块（全面升级：错题重做） ===================== -->
+      <div id="review-tab" class="test-tab" style="display:none;">
+        <div class="card">
+          <h3><i class="fas fa-circle-xmark" style="color:var(--danger-500);"></i> ❌ Wrong Question Review</h3>
+          <p>Review your mistakes and master all color coding concepts! You can redo all wrong questions here.</p>
+          
+          <div style="display:flex; gap:12px; margin:20px 0; flex-wrap:wrap;">
+            <button onclick="redoWrongQuestions()" class="btn-accent"><i class="fas fa-redo"></i> Redo All Wrong Questions</button>
+            <button onclick="clearWrongQuestions()" class="btn-danger"><i class="fas fa-trash"></i> Clear All Wrong Questions</button>
+          </div>
+
+          <div id="wrong-list" class="error-list">
+            <li>No wrong questions to display. Take a test to get started!</li>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 测试统计模块（全面升级：数字动画、历史数据） ===================== -->
+      <div id="stats-tab" class="test-tab" style="display:none;">
+        <div class="card">
+          <h3><i class="fas fa-chart-line" style="color:var(--accent-500);"></i> 📊 Test History & Statistics</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 24px 0;">
+            <div class="card" style="padding:20px; text-align:center; margin:0;">
+              <h4><i class="fas fa-clipboard-list"></i> Total Tests Taken</h4>
+              <p style="font-size:32px; font-weight:900;" id="total-tests" class="count-animate">0</p>
+            </div>
+            <div class="card" style="padding:20px; text-align:center; margin:0;">
+              <h4><i class="fas fa-medal"></i> Best Score</h4>
+              <p style="font-size:32px; font-weight:900; color:var(--warning-500);" id="best-score" class="count-animate">0</p>
+            </div>
+            <div class="card" style="padding:20px; text-align:center; margin:0;">
+              <h4><i class="fas fa-percent"></i> Average Accuracy</h4>
+              <p style="font-size:32px; font-weight:900; color:var(--success-500);" id="avg-accuracy" class="count-animate">0</p>%
+            </div>
+          </div>
+          
+          <div style="margin-top:32px;">
+            <h4><i class="fas fa-tasks"></i> Overall Test Learning Progress</h4>
+            <div class="progress-bar">
+              <div class="progress-fill" id="test-progress-fill" style="width:0%;"></div>
+            </div>
+            <p style="text-align:right; font-weight:600; margin-top:8px;"><span id="test-progress-pct">0</span>% Complete</p>
+          </div>
+
+          <div style="margin-top:32px; text-align:center;">
+            <button onclick="refreshTestStats()" class="btn-warning"><i class="fas fa-sync"></i> Refresh Statistics</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 测试知识范围卡片（美化升级） -->
+      <div class="card">
+        <h3><i class="fas fa-book-open" style="color:var(--warning-500);"></i> 📚 Test Knowledge Scope</h3>
+        <p>All questions are based on the official curriculum, covering all core color coding concepts:</p>
+        <div class="info-grid" style="margin-top:20px;">
+          <div class="info-card">
+            <h4>🎨 RGB Model</h4>
+            <p>Value recognition, conversion, application & additive color theory</p>
+          </div>
+          <div class="info-card">
+            <h4>#️⃣ Hexadecimal Code</h4>
+            <p>Code reading, matching, shorthand & web standard notation</p>
+          </div>
+          <div class="info-card">
+            <h4>🖨️ CMYK Model</h4>
+            <p>Printing color theory, subtractive mixing & industry applications</p>
+          </div>
+          <div class="info-card">
+            <h4>⚙️ HSL/HSV Model</h4>
+            <p>Human-friendly color system, hue/saturation/lightness control</p>
+          </div>
+          <div class="info-card">
+            <h4>♿ Accessibility</h4>
+            <p>WCAG color contrast rules & color blind friendly design</p>
+          </div>
+          <div class="info-card">
+            <h4>💡 Color Theory</h4>
+            <p>Fundamentals for UI/UX design, web development & print design</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚（与全站V4.0统一） -->
+    <div class="footer fade-in">© 2026 EBU6305 Group G03 | Test Module V4.0 | Professional Color Certification System</div>
   </div>
 
-  <div class="footer">© 2026 EBU6305 Group G03</div>
-</div>
+  <!-- 粒子背景画布（全局统一） -->
+  <canvas id="particle-bg"></canvas>
 
-<script>
-function showResult(isCorrect) {
-  const res = document.getElementById("resultText");
-  if(isCorrect) {
-    res.innerText = "✅ Correct! You master the RGB basic knowledge";
-    res.style.color = "green";
-  } else {
-    res.innerText = "❌ Wrong answer, please try again";
-    res.style.color = "red";
-  }
-}
-</script>
+  <script>
+    // =========================
+    // 1. 标签切换（升级：音效、动画）
+    // =========================
+    function switchTestTab(tab) {
+      document.querySelectorAll('.test-tab').forEach(t=>t.style.display='none');
+      document.querySelectorAll('.tab-btn').forEach(b=>{
+        b.style.background='';
+        b.style.color='var(--text-main)';
+      });
+      document.getElementById(tab+'-tab').style.display='block';
+      event.target.style.background='var(--accent-500)';
+      event.target.style.color='white';
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    // =========================
+    // 2. 史诗级扩充题库（30题，分知识点分类，覆盖全课程）
+    // =========================
+    const questionBank = [
+      // RGB分类
+      {id:1, category:"rgb", q:"What is the RGB value for pure red?",o:["rgb(255, 0, 0)","rgb(0, 255, 0)","rgb(0, 0, 255)"],a:0},
+      {id:2, category:"rgb", q:"What is the RGB value for pure green?",o:["rgb(255, 0, 0)","rgb(0, 255, 0)","rgb(0, 0, 255)"],a:1},
+      {id:3, category:"rgb", q:"What is the RGB value for pure blue?",o:["rgb(255, 0, 0)","rgb(0, 255, 0)","rgb(0, 0, 255)"],a:2},
+      {id:4, category:"rgb", q:"What color is rgb(0, 0, 0)?",o:["White","Black","Gray"],a:1},
+      {id:5, category:"rgb", q:"What color is rgb(255, 255, 255)?",o:["Black","White","Gray"],a:1},
+      {id:6, category:"rgb", q:"How many channels are there in the standard RGB color model?",o:["2","3","4"],a:1},
+      {id:7, category:"rgb", q:"What is the value range for each RGB channel?",o:["0-100","0-255","1-256"],a:1},
+      {id:8, category:"rgb", q:"What does the 'A' in RGBA stand for?",o:["Alpha (Transparency)","Accent","Advanced"],a:0},
+      {id:9, category:"rgb", q:"RGB is an ______ color model.",o:["Additive","Subtractive","Multiplicative"],a:0},
+      // Hex分类
+      {id:10, category:"hex", q:"What character does a hexadecimal color code start with?",o:["#","@","&"],a:0},
+      {id:11, category:"hex", q:"What is the hex code for pure white?",o:["#000000","#FFFFFF","#808080"],a:1},
+      {id:12, category:"hex", q:"What is the hex code for pure black?",o:["#000000","#FFFFFF","#FF0000"],a:0},
+      {id:13, category:"hex", q:"What is the shorthand hex code for #FF0000?",o:["#F00","#FF0","#F0"],a:0},
+      {id:14, category:"hex", q:"Which of the following is a valid hex color code?",o:["#F00","#G00","#X00"],a:0},
+      {id:15, category:"hex", q:"What color is #00FF00?",o:["Red","Green","Blue"],a:1},
+      {id:16, category:"hex", q:"What color is #0000FF?",o:["Red","Green","Blue"],a:2},
+      {id:17, category:"hex", q:"What is the 8-digit hex code used for?",o:["Adding transparency","Darker colors","Lighter colors"],a:0},
+      // CMYK分类
+      {id:18, category:"cmyk", q:"Which color model is primarily used for printing?",o:["RGB","CMYK","Hex"],a:1},
+      {id:19, category:"cmyk", q:"What does the 'K' in CMYK stand for?",o:["Key (Black)","Cyan","Yellow"],a:0},
+      {id:20, category:"cmyk", q:"CMYK is an ______ color model.",o:["Additive","Subtractive","Multiplicative"],a:1},
+      {id:21, category:"cmyk", q:"What does CMYK stand for?",o:["Cyan Magenta Yellow Key","Code Mix Yellow Key","Color Mix Yellow Black"],a:0},
+      {id:22, category:"cmyk", q:"Why is black (K) added to the CMYK model?",o:["To create true black","To make colors brighter","To save ink"],a:0},
+      // HSL分类
+      {id:23, category:"hsl", q:"What does HSL stand for?",o:["Hue Saturation Lightness","High Saturation Level","Hex Standard Light"],a:0},
+      {id:24, category:"hsl", q:"What is the value range for Hue in the HSL model?",o:["0-100","0-360°","0-255"],a:1},
+      {id:25, category:"hsl", q:"What Hue value represents pure red?",o:["0°","120°","240°"],a:0},
+      {id:26, category:"hsl", q:"What does 0% Saturation result in?",o:["Pure color","Grayscale","Full brightness"],a:1},
+      // 无障碍分类
+      {id:27, category:"accessibility", q:"Which color contrast rule is best for accessibility?",o:["Low contrast","High contrast","No contrast"],a:1},
+      {id:28, category:"accessibility", q:"High color contrast helps which group of users?",o:["Color blind & visually impaired users","Normal users","No users"],a:0},
+      {id:29, category:"accessibility", q:"What is the minimum WCAG AA contrast standard for normal text?",o:["3:1","4.5:1","7:1"],a:1},
+      {id:30, category:"accessibility", q:"Which of the following is the most accessible color pair?",o:["Black text on white background","Light gray text on white background","Red text on green background"],a:0}
+    ];
+
+    // =========================
+    // 3. 全局考试状态管理
+    // =========================
+    let testState = {
+      score: 0,
+      current: 0,
+      total: 0,
+      userAnswers: [],
+      wrong: [],
+      timeLeft: 0,
+      timer: null,
+      diff: 'easy',
+      questions: [],
+      isStarted: false
+    };
+
+    let practiceState = {
+      category: 'all',
+      currentQuestion: null
+    };
+
+    // =========================
+    // 4. 考试核心逻辑（全面升级：前后选题、限时、答案暂存）
+    // =========================
+    function setTestDiff(){
+      testState.diff = document.getElementById('test-diff').value;
+    }
+
+    function startTest(){
+      // 重置考试状态
+      testState = {
+        score: 0,
+        current: 0,
+        total: 0,
+        userAnswers: [],
+        wrong: [],
+        timeLeft: 0,
+        timer: null,
+        diff: document.getElementById('test-diff').value,
+        questions: [],
+        isStarted: true
+      };
+
+      // 根据难度设置题目数量和时间
+      const diffConfig = {
+        easy: {count:5, time:600},
+        medium: {count:10, time:900},
+        hard: {count:15, time:1200},
+        expert: {count:20, time:1800}
+      };
+      const config = diffConfig[testState.diff];
+      testState.total = config.count;
+      testState.timeLeft = config.time;
+      testState.userAnswers = new Array(config.count).fill(null);
+
+      // 随机抽取题目
+      const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
+      testState.questions = shuffled.slice(0, config.count);
+
+      // 更新UI
+      document.getElementById('test-total').innerText = testState.total;
+      document.getElementById('test-time').innerText = testState.timeLeft;
+      document.getElementById('test-rules').style.display = 'none';
+      document.getElementById('test-question').style.display = 'block';
+      document.getElementById('test-result').style.display = 'none';
+      
+      // 生成题目进度指示器
+      renderQuestionProgress();
+      
+      // 加载第一题
+      loadQuestion();
+      
+      // 启动计时器
+      if(testState.timer) clearInterval(testState.timer);
+      testState.timer = setInterval(updateTimer, 1000);
+
+      // 开始音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    function renderQuestionProgress(){
+      const progressContainer = document.getElementById('question-progress');
+      progressContainer.innerHTML = '';
+      progressContainer.style.display = 'flex';
+      
+      for(let i=0; i<testState.total; i++){
+        const dot = document.createElement('div');
+        dot.className = 'q-dot';
+        dot.id = `q-dot-${i}`;
+        dot.innerText = i+1;
+        dot.onclick = () => jumpToQuestion(i);
+        progressContainer.appendChild(dot);
+      }
+      updateQuestionProgress();
+    }
+
+    function updateQuestionProgress(){
+      for(let i=0; i<testState.total; i++){
+        const dot = document.getElementById(`q-dot-${i}`);
+        dot.classList.remove('active', 'correct', 'wrong');
+        
+        if(i === testState.current){
+          dot.classList.add('active');
+        } else if(testState.userAnswers[i] !== null){
+          const isCorrect = testState.userAnswers[i] === testState.questions[i].a;
+          dot.classList.add(isCorrect ? 'correct' : 'wrong');
+        }
+      }
+    }
+
+    function loadQuestion(){
+      if(testState.current < 0 || testState.current >= testState.total) return;
+      
+      const q = testState.questions[testState.current];
+      document.getElementById('q-title').innerText = q.q;
+      
+      const optBox = document.getElementById('q-options');
+      optBox.innerHTML = '';
+      
+      q.o.forEach((opt, i)=>{
+        const label = document.createElement('label');
+        label.className = 'option-label';
+        label.innerHTML = `
+          <input type='radio' name='q-opt' value='${i}' ${testState.userAnswers[testState.current] === i ? 'checked' : ''}> 
+          <span>${opt}</span>
+        `;
+        optBox.appendChild(label);
+      });
+
+      document.getElementById('test-current').innerText = testState.current + 1;
+      document.getElementById('test-score').innerText = testState.score;
+      updateQuestionProgress();
+    }
+
+    function saveCurrentAnswer(){
+      const selected = document.querySelector('input[name="q-opt"]:checked');
+      if(selected){
+        testState.userAnswers[testState.current] = parseInt(selected.value);
+      }
+    }
+
+    function prevQuestion(){
+      saveCurrentAnswer();
+      if(testState.current > 0){
+        testState.current--;
+        loadQuestion();
+      }
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    function nextQuestion(){
+      saveCurrentAnswer();
+      if(testState.current < testState.total - 1){
+        testState.current++;
+        loadQuestion();
+      }
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    function jumpToQuestion(index){
+      saveCurrentAnswer();
+      testState.current = index;
+      loadQuestion();
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    function updateTimer(){
+      if(testState.timeLeft <= 0){
+        submitTest();
+        return;
+      }
+      
+      testState.timeLeft--;
+      const timeElement = document.getElementById('test-time');
+      timeElement.innerText = testState.timeLeft;
+      
+      // 倒计时紧急状态
+      if(testState.timeLeft <= 60){
+        timeElement.classList.add('timer-danger');
+      } else {
+        timeElement.classList.remove('timer-danger');
+      }
+    }
+
+    function submitTest(){
+      saveCurrentAnswer();
+      clearInterval(testState.timer);
+      testState.isStarted = false;
+
+      // 计算分数和错题
+      let correctCount = 0;
+      testState.wrong = [];
+      
+      testState.questions.forEach((q, i)=>{
+        if(testState.userAnswers[i] === q.a){
+          correctCount++;
+          testState.score += 10;
+        } else {
+          testState.wrong.push(q);
+        }
+      });
+
+      // 更新结果UI
+      document.getElementById('test-question').style.display = 'none';
+      document.getElementById('question-progress').style.display = 'none';
+      document.getElementById('test-result').style.display = 'block';
+      
+      document.getElementById('final-score').innerText = testState.score;
+      document.getElementById('correct-count').innerText = correctCount;
+      document.getElementById('wrong-count').innerText = testState.wrong.length;
+      
+      const accuracy = testState.total > 0 ? Math.round((correctCount / testState.total) * 100) : 0;
+      document.getElementById('accuracy').innerText = accuracy;
+
+      // 星级评分
+      renderStarRating(accuracy);
+      
+      // 结果评语
+      const comment = getResultComment(accuracy);
+      document.getElementById('result-comment').innerText = comment.text;
+      document.getElementById('result-comment').style.color = comment.color;
+
+      // 证书按钮显示
+      const certBtn = document.getElementById('cert-btn');
+      if(accuracy >= 80){
+        certBtn.style.display = 'inline-block';
+      } else {
+        certBtn.style.display = 'none';
+      }
+
+      // 保存数据
+      saveTestData(accuracy);
+      loadWrongQuestions();
+      loadTestStats();
+
+      // 完成音效
+      if (audioConfig.enabled) audioConfig.success.play().catch(() => {});
+    }
+
+    function renderStarRating(accuracy){
+      const starContainer = document.getElementById('star-rating');
+      starContainer.innerHTML = '';
+      
+      let stars = 0;
+      if(accuracy >= 90) stars = 5;
+      else if(accuracy >= 80) stars = 4;
+      else if(accuracy >= 70) stars = 3;
+      else if(accuracy >= 60) stars = 2;
+      else stars = 1;
+      
+      for(let i=0; i<5; i++){
+        const star = document.createElement('i');
+        star.className = i < stars ? 'fas fa-star' : 'far fa-star';
+        starContainer.appendChild(star);
+      }
+    }
+
+    function getResultComment(accuracy){
+      if(accuracy >= 90){
+        return {text:"🏆 Outstanding! You are a Color Coding Master!", color:"var(--warning-500)"};
+      } else if(accuracy >= 80){
+        return {text:"🎉 Excellent! You have mastered all core concepts!", color:"var(--success-500)"};
+      } else if(accuracy >= 60){
+        return {text:"👍 Good Job! You passed the test!", color:"var(--accent-500)"};
+      } else {
+        return {text:"📚 Keep Learning! Review the wrong questions and try again!", color:"var(--danger-500)"};
+      }
+    }
+
+    function endTest(){
+      if(!testState.isStarted) return;
+      if(confirm('⚠️ Are you sure you want to end the test? Your answers will be submitted immediately.')){
+        submitTest();
+      }
+    }
+
+    function restartTest(){
+      startTest();
+    }
+
+    // =========================
+    // 5. 练习模式逻辑（升级：专项分类）
+    // =========================
+    function setPracticeCategory(category){
+      practiceState.category = category;
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    function startPractice(){
+      document.getElementById('practice-box').style.display = 'block';
+      loadPracticeQuestion();
+      // 开始音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    function loadPracticeQuestion(){
+      let filteredQuestions = questionBank;
+      if(practiceState.category !== 'all'){
+        filteredQuestions = questionBank.filter(q => q.category === practiceState.category);
+      }
+      
+      practiceState.currentQuestion = filteredQuestions[Math.floor(Math.random() * filteredQuestions.length)];
+      const q = practiceState.currentQuestion;
+      
+      document.getElementById('p-q').innerText = q.q;
+      const optBox = document.getElementById('p-options');
+      optBox.innerHTML = '';
+      
+      q.o.forEach((opt,i)=>{
+        optBox.innerHTML += `
+          <button onclick='checkPractice(${i},${q.a})' class='btn-accent' style='min-width:160px; margin:8px;'>${opt}</button>
+        `;
+      });
+      
+      document.getElementById('p-res').innerText = '';
+    }
+
+    function checkPractice(select, ans){
+      const res = document.getElementById('p-res');
+      if(select === ans){
+        res.innerText = '✅ Correct! Great Job!';
+        res.style.color = 'var(--success-500)';
+        // 成功音效
+        if (audioConfig.enabled) audioConfig.success.play().catch(() => {});
+        setTimeout(loadPracticeQuestion, 1200);
+      } else {
+        res.innerText = '❌ Wrong! Try again.';
+        res.style.color = 'var(--danger-500)';
+        // 错误音效
+        if (audioConfig.enabled) audioConfig.error.play().catch(() => {});
+      }
+    }
+
+    // =========================
+    // 6. 错题回顾逻辑（升级：错题重做）
+    // =========================
+    function loadWrongQuestions(){
+      const list = document.getElementById('wrong-list');
+      list.innerHTML = '';
+      let wrongs = JSON.parse(localStorage.getItem('wrong-questions')) || [];
+      
+      // 合并本次考试错题
+      testState.wrong.forEach(q=>{
+        if(!wrongs.some(item=>item.id === q.id)) wrongs.push(q);
+      });
+      
+      localStorage.setItem('wrong-questions', JSON.stringify(wrongs));
+      
+      if(wrongs.length === 0){
+        list.innerHTML = '<li>No wrong questions to display. Take a test to get started!</li>';
+        return;
+      }
+      
+      wrongs.forEach(q=>{
+        list.innerHTML += `
+          <li>
+            <strong style='font-size:16px;'>Q${q.id}: ${q.q}</strong> 
+            <br><br>
+            <strong style='color:var(--success-500);'>✅ Correct Answer:</strong> ${q.o[q.a]}
+          </li>
+        `;
+      });
+    }
+
+    function redoWrongQuestions(){
+      const wrongs = JSON.parse(localStorage.getItem('wrong-questions')) || [];
+      if(wrongs.length === 0){
+        alert('❌ No wrong questions to redo!');
+        return;
+      }
+      
+      // 重置考试状态，仅使用错题
+      testState = {
+        score: 0,
+        current: 0,
+        total: wrongs.length,
+        userAnswers: new Array(wrongs.length).fill(null),
+        wrong: [],
+        timeLeft: wrongs.length * 60,
+        timer: null,
+        diff: 'custom',
+        questions: wrongs,
+        isStarted: true
+      };
+
+      // 更新UI
+      document.getElementById('test-total').innerText = testState.total;
+      document.getElementById('test-time').innerText = testState.timeLeft;
+      document.getElementById('test-rules').style.display = 'none';
+      document.getElementById('test-question').style.display = 'block';
+      document.getElementById('test-result').style.display = 'none';
+      
+      // 生成题目进度
+      renderQuestionProgress();
+      
+      // 加载第一题
+      loadQuestion();
+      
+      // 启动计时器
+      if(testState.timer) clearInterval(testState.timer);
+      testState.timer = setInterval(updateTimer, 1000);
+
+      // 切换到考试标签
+      switchTestTab('quiz');
+    }
+
+    function clearWrongQuestions(){
+      if(confirm('⚠️ Are you sure you want to clear all wrong questions? This cannot be undone!')){
+        localStorage.removeItem('wrong-questions');
+        document.getElementById('wrong-list').innerHTML='<li>No wrong questions to display. Take a test to get started!</li>';
+        alert('✅ All wrong questions cleared!');
+      }
+    }
+
+    // =========================
+    // 7. 证书生成功能
+    // =========================
+    function generateCertificate() {
+      const username = localStorage.getItem('username') || 'Color Coding Learner';
+      const score = testState.score;
+      const accuracy = document.getElementById('accuracy').innerText;
+      const canvas = document.createElement('canvas');
+      canvas.width = 1200;
+      canvas.height = 800;
+      const ctx = canvas.getContext('2d');
+      
+      // 证书背景
+      const gradient = ctx.createLinearGradient(0, 0, 1200, 800);
+      gradient.addColorStop(0, '#f0f9ff');
+      gradient.addColorStop(1, '#e0f2fe');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 1200, 800);
+      
+      // 证书边框
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 15;
+      ctx.strokeRect(30, 30, 1140, 740);
+      
+      ctx.strokeStyle = '#60a5fa';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(50, 50, 1100, 700);
+      
+      // 证书标题
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 50px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Color Coding Certification', 600, 150);
+      
+      ctx.font = '30px Inter, sans-serif';
+      ctx.fillText('This is to certify that', 600, 220);
+      
+      // 用户名
+      ctx.font = 'bold 40px Inter, sans-serif';
+      ctx.fillStyle = '#1d4ed8';
+      ctx.fillText(username, 600, 300);
+      
+      // 证书内容
+      ctx.font = '24px Inter, sans-serif';
+      ctx.fillStyle = '#0f172a';
+      ctx.fillText(`has successfully completed the Color Coding Certification Quiz`, 600, 360);
+      ctx.fillText(`with a score of ${score} points and ${accuracy}% accuracy.`, 600, 400);
+      ctx.fillText('Has demonstrated mastery of RGB, Hex, CMYK, HSL and color accessibility.', 600, 450);
+      
+      // 日期和签名
+      ctx.font = '20px Inter, sans-serif';
+      ctx.fillText('Issued on: ' + new Date().toLocaleDateString(), 600, 550);
+      
+      ctx.font = 'italic 24px Inter, sans-serif';
+      ctx.fillText('Color Coding Learning Platform', 600, 650);
+      
+      ctx.font = '20px Inter, sans-serif';
+      ctx.fillText('EBU6305 Group G03', 600, 700);
+      
+      // 下载证书
+      const link = document.createElement('a');
+      link.download = `${username}-Color-Coding-Certificate.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+      
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    // =========================
+    // 8. 统计数据管理
+    // =========================
+    function saveTestData(accuracy){
+      let data = JSON.parse(localStorage.getItem('test-data')) || {tests:0, best:0, totalAcc:0};
+      data.tests++;
+      if(testState.score > data.best) data.best = testState.score;
+      data.totalAcc += accuracy;
+      
+      localStorage.setItem('test-data', JSON.stringify(data));
+      
+      // 同步总分到首页
+      const currentTotal = parseInt(localStorage.getItem('totalScore')||0);
+      localStorage.setItem('totalScore', currentTotal + testState.score);
+      
+      // 同步测试进度
+      const testProgress = Math.min(100, data.tests * 10);
+      localStorage.setItem('test-progress', testProgress);
+    }
+
+    function loadTestStats(){
+      let data = JSON.parse(localStorage.getItem('test-data')) || {tests:0, best:0, totalAcc:0};
+      document.getElementById('total-tests').innerText = data.tests;
+      document.getElementById('best-score').innerText = data.best;
+      
+      const avgAccuracy = data.tests > 0 ? Math.round(data.totalAcc / data.tests) : 0;
+      document.getElementById('avg-accuracy').innerText = avgAccuracy;
+      
+      const testProgress = Math.min(100, data.tests * 10);
+      document.getElementById('test-progress-fill').style.width = `${testProgress}%`;
+      document.getElementById('test-progress-pct').innerText = testProgress;
+    }
+
+    function refreshTestStats(){
+      loadTestStats();
+      // 数字滚动动画
+      setTimeout(() => {
+        const data = JSON.parse(localStorage.getItem('test-data')) || {tests:0, best:0, totalAcc:0};
+        const avgAccuracy = data.tests > 0 ? Math.round(data.totalAcc / data.tests) : 0;
+        animateValue('total-tests', 0, data.tests, 1000);
+        animateValue('best-score', 0, data.best, 1000);
+        animateValue('avg-accuracy', 0, avgAccuracy, 1000);
+      }, 300);
+      alert("🔄 Statistics refreshed!");
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
+
+    // =========================
+    // 9. 工具函数
+    // =========================
+    function animateValue(id, start, end, duration) {
+      const element = document.getElementById(id);
+      if (!element) return;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const easeProgress = progress * (2 - progress);
+        element.innerText = Math.floor(start + easeProgress * (end - start));
+        element.classList.add('count-animate');
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // =========================
+    // 10. 全局功能：深色模式、主题、音效、粒子背景
+    // =========================
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      const icon = document.getElementById('dark-icon');
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+      localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
+    }
+
+    function openThemePicker() {
+      const themes = [
+        { name: 'Classic Blue', color: '#3b82f6' },
+        { name: 'Dream Purple', color: '#8b5cf6' },
+        { name: 'Vibrant Red', color: '#ef4444' },
+        { name: 'Forest Green', color: '#22c55e' },
+        { name: 'Sunset Orange', color: '#f59e0b' },
+        { name: 'Pink Rose', color: '#ec4899' },
+      ];
+      let themeHTML = 'Choose your theme (enter number):\n';
+      themes.forEach((t, i) => themeHTML += `${i+1}. ${t.name}\n`);
+      const choice = prompt(themeHTML);
+      if (choice && themes[choice-1]) {
+        setCustomTheme(themes[choice-1].color);
+        alert(`✅ Theme changed to ${themes[choice-1].name}!`);
+      }
+    }
+
+    function setCustomTheme(primaryColor) {
+      const root = document.documentElement;
+      root.style.setProperty('--accent-500', primaryColor);
+      localStorage.setItem('custom-theme', primaryColor);
+    }
+
+    const audioConfig = {
+      enabled: localStorage.getItem('audio-enabled') !== 'false',
+      click: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'),
+      success: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'),
+      error: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT')
+    };
+
+    function toggleAudio() {
+      audioConfig.enabled = !audioConfig.enabled;
+      localStorage.setItem('audio-enabled', audioConfig.enabled);
+      const icon = document.getElementById('audio-icon');
+      icon.classList.toggle('fa-volume-up');
+      icon.classList.toggle('fa-volume-mute');
+    }
+
+    // 粒子背景特效
+    const canvas = document.getElementById('particle-bg');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = getComputedStyle(document.documentElement).getPropertyValue('--accent-400').trim() || '#60a5fa';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 80; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // 3D卡片鼠标跟随效果
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.classList.add('card-3d');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width;
+          const y = (e.clientY - rect.top) / rect.height;
+          card.style.setProperty('--mouse-x', x);
+          card.style.setProperty('--mouse-y', y);
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.setProperty('--mouse-x', 0.5);
+          card.style.setProperty('--mouse-y', 0.5);
+        });
+      });
+    });
+
+    // =========================
+    // 页面初始化
+    // =========================
+    window.onload=()=>{
+      // 恢复深色模式
+      if(localStorage.getItem('dark-mode') === 'true'){
+        document.body.classList.add('dark');
+        document.getElementById('dark-icon').classList.replace('fa-moon','fa-sun');
+      }
+      // 恢复音效设置
+      if(localStorage.getItem('audio-enabled') === 'false'){
+        document.getElementById('audio-icon').classList.replace('fa-volume-up','fa-volume-mute');
+      }
+      // 恢复自定义主题
+      const customTheme = localStorage.getItem('custom-theme');
+      if(customTheme) setCustomTheme(customTheme);
+      
+      // 加载数据
+      loadWrongQuestions();
+      loadTestStats();
+      switchTestTab('quiz');
+    };
+  </script>
 </body>
 </html>

@@ -1,45 +1,1092 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Learning - Color Coding G03</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning - Color Coding G03 V4.0 | Professional Color Academy</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 页面专属精简样式，全局样式已在style.css升级完成 */
+    .color-panel {
+      background: var(--bg-elevated);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin: 24px 0;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--bg-glass-border);
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .info-card {
+      padding: 20px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      border-left: 5px solid var(--accent-500);
+      border: 1px solid var(--bg-glass-border);
+      transition: var(--transition-bounce);
+    }
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md), var(--shadow-glow-accent);
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .comparison-table th {
+      background: var(--gradient-main);
+      color: white;
+      padding: 16px;
+      font-weight: 800;
+    }
+    .comparison-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--bg-overlay);
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+    }
+    .comparison-table tr:hover td {
+      background: var(--bg-overlay);
+      transform: scale(1.01);
+    }
+    .copy-btn {
+      padding: 8px 16px;
+      background: var(--gradient-main);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-left: 10px;
+      font-weight: 600;
+      transition: var(--transition-bounce);
+    }
+    .copy-btn:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow-accent);
+    }
+    .quiz-modal {
+      padding: 24px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      margin: 24px 0;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--bg-glass-border);
+    }
+    .tab-content {
+      animation: fadeUp 0.6s ease forwards;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <div class="navbar">
-    <a href="homepage.html">Home</a>
-    <a href="learning.html">Learning</a>
-    <a href="game.html">Game</a>
-    <a href="test.html">Test</a>
-    <a href="community.html">Community</a>
-    <a href="support.html">Support</a>
+  <div class="container">
+    <!-- 导航栏（与首页V4.0完全统一） -->
+    <div class="navbar">
+      <a href="homepage.html">Home</a>
+      <a href="learning.html" class="active">Learning</a>
+      <a href="game.html">Game</a>
+      <a href="test.html">Test</a>
+      <a href="community.html">Community</a>
+      <a href="support.html">Support</a>
+      <button onclick="toggleDarkMode()" class="btn" style="padding:8px 12px;">
+        <i class="fas fa-moon" id="dark-icon"></i>
+      </button>
+      <button onclick="openThemePicker()" class="btn" style="padding:8px 12px;">
+        <i class="fas fa-palette"></i>
+      </button>
+      <button onclick="toggleAudio()" class="btn" style="padding:8px 12px;">
+        <i class="fas fa-volume-up" id="audio-icon"></i>
+      </button>
+    </div>
+
+    <!-- 头部（V4.0史诗级升级） -->
+    <div class="header fade-in">
+      <i class="fas fa-book-open"></i> Learning Module | Professional Color Academy
+    </div>
+
+    <!-- 核心内容区 -->
+    <div class="content fade-in">
+      <!-- 学习导航 tabs（新增HSL/HSV专业模型） -->
+      <div style="display: flex; border-bottom: 2px solid var(--accent-400); margin-bottom: 24px; flex-wrap: wrap; gap: 6px;">
+        <button class="tab-btn" onclick="switchTab('rgb')" style="background: var(--accent-500); color:white;">RGB Color Model</button>
+        <button class="tab-btn" onclick="switchTab('cmyk')">CMYK Color Model</button>
+        <button class="tab-btn" onclick="switchTab('hex')">Hexadecimal Code</button>
+        <button class="tab-btn" onclick="switchTab('hsl')">HSL/HSV Model</button>
+        <button class="tab-btn" onclick="switchTab('comparison')">Model Comparison</button>
+        <button class="tab-btn" onclick="switchTab('resources')">Learning Resources</button>
+      </div>
+
+      <!-- ===================== RGB 标签内容（全面升级） ===================== -->
+      <div id="rgb-tab" class="tab-content">
+        <div class="card">
+          <h3><i class="fas fa-palette" style="color:#ef4444;"></i> RGB Color Model | Additive Light System</h3>
+          <p>RGB (Red, Green, Blue) is an additive color model where red, green, and blue light are added together in various ways to reproduce a broad array of colors. Each channel ranges from 0 (no light) to 255 (full intensity).</p>
+          
+          <!-- 专业术语解释 -->
+          <div class="info-grid">
+            <div class="info-card">
+              <h4>🔑 Core Term</h4>
+              <p><strong>Additive Color:</strong> Light sources are combined to create new colors</p>
+            </div>
+            <div class="info-card">
+              <h4>📊 Color Depth</h4>
+              <p>24-bit True Color → 16,777,216 unique colors</p>
+            </div>
+          </div>
+
+          <!-- 交互式RGB演示器（升级：新增拾色器） -->
+          <div class="color-panel">
+            <h4>🎨 Interactive RGB Preview & Converter</h4>
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+              <button onclick="openColorPicker('rgb')" class="btn-accent">
+                <i class="fas fa-eye-dropper"></i> Pick Screen Color
+              </button>
+            </div>
+
+            <div class="form-group">
+              <label for="red">Red (0-255):</label>
+              <input type="range" id="red" min="0" max="255" value="255" oninput="updateRGBPreview()">
+              <span id="red-value">255</span>
+            </div>
+            <div class="form-group">
+              <label for="green">Green (0-255):</label>
+              <input type="range" id="green" min="0" max="255" value="0" oninput="updateRGBPreview()">
+              <span id="green-value">0</span>
+            </div>
+            <div class="form-group">
+              <label for="blue">Blue (0-255):</label>
+              <input type="range" id="blue" min="0" max="255" value="0" oninput="updateRGBPreview()">
+              <span id="blue-value">0</span>
+            </div>
+            <div id="rgb-preview" style="width: 200px; height: 200px; margin: 24px auto; background-color: rgb(255,0,0); border-radius: var(--radius-lg); border: 4px solid var(--accent-500); box-shadow: var(--shadow-glow-accent);"></div>
+            
+            <p style="font-size:16px; font-weight:600;">
+              Current RGB Value: <span id="rgb-code">rgb(255, 0, 0)</span>
+              <button class="copy-btn" onclick="copyText('rgb-code')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding Hex Code: <span id="rgb-hex">#FF0000</span>
+              <button class="copy-btn" onclick="copyText('rgb-hex')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding HSL Value: <span id="rgb-hsl">hsl(0, 100%, 50%)</span>
+              <button class="copy-btn" onclick="copyText('rgb-hsl')">Copy</button>
+            </p>
+          </div>
+
+          <!-- 核心知识点（扩充） -->
+          <div style="margin: 24px 0;">
+            <h4>📚 Key Knowledge Points (Expanded)</h4>
+            <ul style="padding-left: 20px; margin-top: 10px; line-height:1.8;">
+              <li>Used for electronic screens (monitors, phones, TVs, projectors) - additive color mixing</li>
+              <li>Each channel (R/G/B) has 256 levels (0-255) → 16,777,216 possible colors</li>
+              <li>Common RGB values: White (255,255,255), Black (0,0,0), Pure Red (255,0,0), Blue (0,0,255)</li>
+              <li>Web development: Used in CSS (rgb() / rgba() with alpha transparency channel)</li>
+              <li>Digital imaging: Photoshop, Figma, Canva default color mode for screen design</li>
+              <li>RGBA: Adds transparency (0 = fully transparent, 1 = fully opaque)</li>
+            </ul>
+          </div>
+
+          <!-- 行业应用场景 -->
+          <div style="margin:24px 0; padding:20px; background:var(--bg-elevated); border-radius:var(--radius-md); border: 1px solid var(--bg-glass-border);">
+            <h4>💼 Industry Applications</h4>
+            <p>Web Design · Mobile Apps · Game Development · Digital Advertising · UI/UX Design · Social Media Graphics</p>
+          </div>
+
+          <!-- 标记为已学习按钮 -->
+          <button onclick="markAsLearned('rgb')" class="btn-success">
+            <i class="fas fa-check"></i> Mark as Learned ✔
+          </button>
+        </div>
+      </div>
+
+      <!-- ===================== CMYK 标签内容（全面升级） ===================== -->
+      <div id="cmyk-tab" class="tab-content" style="display: none;">
+        <div class="card">
+          <h3><i class="fas fa-print" style="color:#f59e0b;"></i> CMYK Color Model | Subtractive Printing System</h3>
+          <p>CMYK (Cyan, Magenta, Yellow, Key Black) is a subtractive color model used in color printing. It works by subtracting (absorbing) light wavelengths and reflecting others.</p>
+          
+          <div class="info-grid">
+            <div class="info-card" style="border-left-color:var(--warning-500);">
+              <h4>🔑 Core Term</h4>
+              <p><strong>Subtractive Color:</strong> Ink absorbs light, creating color</p>
+            </div>
+            <div class="info-card" style="border-left-color:var(--warning-500);">
+              <h4>🖨️ Key Fact</h4>
+              <p>K = Key Black → prevents muddy dark brown from CMY mix</p>
+            </div>
+          </div>
+          
+          <!-- 交互式CMYK演示器（升级） -->
+          <div class="color-panel">
+            <h4>🎨 Interactive CMYK Print Simulator</h4>
+            <div class="form-group">
+              <label for="cyan">Cyan (0-100%):</label>
+              <input type="range" id="cyan" min="0" max="100" value="0" oninput="updateCMYKPreview()">
+              <span id="cyan-value">0%</span>
+            </div>
+            <div class="form-group">
+              <label for="magenta">Magenta (0-100%):</label>
+              <input type="range" id="magenta" min="0" max="100" value="100" oninput="updateCMYKPreview()">
+              <span id="magenta-value">100%</span>
+            </div>
+            <div class="form-group">
+              <label for="yellow">Yellow (0-100%):</label>
+              <input type="range" id="yellow" min="0" max="100" value="100" oninput="updateCMYKPreview()">
+              <span id="yellow-value">100%</span>
+            </div>
+            <div class="form-group">
+              <label for="black">Key Black (0-100%):</label>
+              <input type="range" id="black" min="0" max="100" value="0" oninput="updateCMYKPreview()">
+              <span id="black-value">0%</span>
+            </div>
+            <div id="cmyk-preview" style="width: 200px; height: 200px; margin: 24px auto; background-color: #FF00FF; border-radius: var(--radius-lg); border: 4px solid var(--warning-500); box-shadow: var(--shadow-glow-warning);"></div>
+            <p style="font-size:16px; font-weight:600;">Current CMYK Value: <span id="cmyk-code">CMYK(0%, 100%, 100%, 0%)</span>
+              <button class="copy-btn" onclick="copyText('cmyk-code')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding RGB Value: <span id="cmyk-rgb">rgb(255, 0, 255)</span>
+              <button class="copy-btn" onclick="copyText('cmyk-rgb')">Copy</button>
+            </p>
+          </div>
+
+          <!-- 核心知识点（扩充） -->
+          <div style="margin: 24px 0;">
+            <h4>📚 Key Knowledge Points (Expanded)</h4>
+            <ul style="padding-left: 20px; margin-top: 10px; line-height:1.8;">
+              <li>Used for physical printing (posters, magazines, business cards, books) - subtractive color mixing</li>
+              <li>CMY alone can't produce true black (results in dark brown) → Key Black (K) is added</li>
+              <li>100% C + 100% M + 100% Y + 0% K = Rich Black (K used for sharp text & deep blacks)</li>
+              <li>Printing resolution: DPI (Dots Per Inch) - standard is 300 DPI for high-quality prints</li>
+              <li>Professional software: Adobe Illustrator, InDesign, Photoshop (Print Mode)</li>
+              <li>Color calibration: Critical for matching screen colors to printed results</li>
+            </ul>
+          </div>
+
+          <div style="margin:24px 0; padding:20px; background:var(--bg-elevated); border-radius:var(--radius-md); border: 1px solid var(--bg-glass-border);">
+            <h4>💼 Industry Applications</h4>
+            <p>Offset Printing · Packaging · Brand Materials · Magazines · Business Cards · Large Format Posters</p>
+          </div>
+
+          <button onclick="markAsLearned('cmyk')" class="btn-success">
+            <i class="fas fa-check"></i> Mark as Learned ✔
+          </button>
+        </div>
+      </div>
+
+      <!-- ===================== Hex 标签内容（全面升级） ===================== -->
+      <div id="hex-tab" class="tab-content" style="display: none;">
+        <div class="card">
+          <h3><i class="fas fa-code" style="color:#3b82f6;"></i> Hexadecimal Code | Web Standard Color Format</h3>
+          <p>Hexadecimal color codes are a shorthand for RGB values, represented as a 6-digit combination of numbers 0-9 and letters A-F (0-15 in decimal). The format is #RRGGBB.</p>
+          
+          <div class="info-grid">
+            <div class="info-card" style="border-left-color:var(--accent-500);">
+              <h4>🔑 Base System</h4>
+              <p>Hexadecimal = Base 16 (0-9, A-F)</p>
+            </div>
+            <div class="info-card" style="border-left-color:var(--accent-500);">
+              <h4>🌐 Web Standard</h4>
+              <p>Official HTML/CSS color code since 1996</p>
+            </div>
+          </div>
+          
+          <!-- 交互式Hex演示器（升级：新增拾色器） -->
+          <div class="color-panel">
+            <h4>🎨 Interactive Hex Color Converter</h4>
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+              <button onclick="openColorPicker('hex')" class="btn-accent">
+                <i class="fas fa-eye-dropper"></i> Pick Screen Color
+              </button>
+            </div>
+
+            <div class="form-group">
+              <label for="hex-input">Enter Hex Code (e.g., #FF0000):</label>
+              <input type="text" id="hex-input" value="#FF0000" oninput="updateHexPreview()" placeholder="#RRGGBB">
+            </div>
+            <div id="hex-preview" style="width: 200px; height: 200px; margin: 24px auto; background-color: #FF0000; border-radius: var(--radius-lg); border: 4px solid var(--accent-500); box-shadow: var(--shadow-glow-accent);"></div>
+            
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding RGB Value: <span id="hex-rgb">rgb(255, 0, 0)</span>
+              <button class="copy-btn" onclick="copyText('hex-rgb')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Short Hex (if applicable): <span id="short-hex">#F00</span>
+              <button class="copy-btn" onclick="copyText('short-hex')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding HSL Value: <span id="hex-hsl">hsl(0, 100%, 50%)</span>
+              <button class="copy-btn" onclick="copyText('hex-hsl')">Copy</button>
+            </p>
+          </div>
+
+          <!-- 核心知识点（扩充） -->
+          <div style="margin: 24px 0;">
+            <h4>📚 Key Knowledge Points (Expanded)</h4>
+            <ul style="padding-left: 20px; margin-top: 10px; line-height:1.8;">
+              <li>Most common color format in front-end development (CSS, HTML, SVG)</li>
+              <li>Short hex code (#RGB) is a shorthand for #RRGGBB (e.g., #F00 = #FF0000)</li>
+              <li>Alpha channel (transparency) can be added: #RRGGBBAA (CSS RGBA equivalent)</li>
+              <li>Hex values are case-insensitive (e.g., #ff0000 = #FF0000 = #f00)</li>
+              <li>8-digit Hex: Supports transparency (00 = transparent, FF = opaque)</li>
+              <li>Used in all design tools: Figma, Sketch, Adobe XD, Webflow</li>
+            </ul>
+          </div>
+
+          <div style="margin:24px 0; padding:20px; background:var(--bg-elevated); border-radius:var(--radius-md); border: 1px solid var(--bg-glass-border);">
+            <h4>💼 Industry Applications</h4>
+            <p>Web Development · UI Design · CSS Coding · SVG Graphics · Digital Design · App Development</p>
+          </div>
+
+          <button onclick="markAsLearned('hex')" class="btn-success">
+            <i class="fas fa-check"></i> Mark as Learned ✔
+          </button>
+        </div>
+      </div>
+
+      <!-- ===================== 新增：HSL/HSV 专业模型标签页 ===================== -->
+      <div id="hsl-tab" class="tab-content" style="display: none;">
+        <div class="card">
+          <h3><i class="fas fa-adjust" style="color:#8b5cf6;"></i> HSL/HSV Color Model | Human-Friendly Color System</h3>
+          <p>HSL (Hue, Saturation, Lightness) and HSV (Hue, Saturation, Value) are human-centric color models, designed to align with how humans perceive and describe colors. They are widely used in design tools and CSS for intuitive color adjustment.</p>
+          
+          <div class="info-grid">
+            <div class="info-card" style="border-left-color:var(--accent-500);">
+              <h4>🔑 Core Term</h4>
+              <p><strong>Hue:</strong> The base color, 0-360° on the color wheel</p>
+            </div>
+            <div class="info-card" style="border-left-color:var(--accent-500);">
+              <h4>🎨 Human-Friendly</h4>
+              <p>Adjust brightness/saturation without changing base hue</p>
+            </div>
+          </div>
+          
+          <!-- 交互式HSL演示器 -->
+          <div class="color-panel">
+            <h4>🎨 Interactive HSL Color Editor</h4>
+            <div class="form-group">
+              <label for="hue">Hue (0-360°):</label>
+              <input type="range" id="hue" min="0" max="360" value="0" oninput="updateHSLPreview()">
+              <span id="hue-value">0°</span>
+            </div>
+            <div class="form-group">
+              <label for="saturation">Saturation (0-100%):</label>
+              <input type="range" id="saturation" min="0" max="100" value="100" oninput="updateHSLPreview()">
+              <span id="saturation-value">100%</span>
+            </div>
+            <div class="form-group">
+              <label for="lightness">Lightness (0-100%):</label>
+              <input type="range" id="lightness" min="0" max="100" value="50" oninput="updateHSLPreview()">
+              <span id="lightness-value">50%</span>
+            </div>
+            <div id="hsl-preview" style="width: 200px; height: 200px; margin: 24px auto; background-color: hsl(0, 100%, 50%); border-radius: var(--radius-lg); border: 4px solid #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);"></div>
+            
+            <p style="font-size:16px; font-weight:600;">
+              Current HSL Value: <span id="hsl-code">hsl(0, 100%, 50%)</span>
+              <button class="copy-btn" onclick="copyText('hsl-code')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding RGB Value: <span id="hsl-rgb">rgb(255, 0, 0)</span>
+              <button class="copy-btn" onclick="copyText('hsl-rgb')">Copy</button>
+            </p>
+            <p style="font-size:16px; font-weight:600;">
+              Corresponding Hex Code: <span id="hsl-hex">#FF0000</span>
+              <button class="copy-btn" onclick="copyText('hsl-hex')">Copy</button>
+            </p>
+          </div>
+
+          <!-- 核心知识点 -->
+          <div style="margin: 24px 0;">
+            <h4>📚 Key Knowledge Points</h4>
+            <ul style="padding-left: 20px; margin-top: 10px; line-height:1.8;">
+              <li><strong>Hue:</strong> 0° = Red, 120° = Green, 240° = Blue, 360° = Red (full color wheel)</li>
+              <li><strong>Saturation:</strong> 0% = Grayscale, 100% = Full vivid color</li>
+              <li><strong>Lightness:</strong> 0% = Pure Black, 50% = True Color, 100% = Pure White</li>
+              <li>HSV is similar to HSL, but uses Value (brightness) instead of Lightness, widely used in Photoshop</li>
+              <li>Native support in CSS: hsl() / hsla() functions, perfect for responsive design and theme systems</li>
+              <li>Intuitive for designers: Adjust shade/tint without changing the base color</li>
+            </ul>
+          </div>
+
+          <div style="margin:24px 0; padding:20px; background:var(--bg-elevated); border-radius:var(--radius-md); border: 1px solid var(--bg-glass-border);">
+            <h4>💼 Industry Applications</h4>
+            <p>UI/UX Design · CSS Theme Development · Digital Art · Photo Editing · Brand Color System · Animation Design</p>
+          </div>
+
+          <button onclick="markAsLearned('hsl')" class="btn-success">
+            <i class="fas fa-check"></i> Mark as Learned ✔
+          </button>
+        </div>
+      </div>
+
+      <!-- ===================== 颜色模型对比标签（全面升级） ===================== -->
+      <div id="comparison-tab" class="tab-content" style="display:none;">
+        <div class="card">
+          <h3><i class="fas fa-balance-scale"></i> Full Color Model Comparison</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Feature</th>
+              <th>RGB</th>
+              <th>CMYK</th>
+              <th>Hex</th>
+              <th>HSL/HSV</th>
+            </tr>
+            <tr>
+              <td>Color System</td>
+              <td>Additive</td>
+              <td>Subtractive</td>
+              <td>RGB Hex Representation</td>
+              <td>Human-Centric Perceptual</td>
+            </tr>
+            <tr>
+              <td>Core Usage</td>
+              <td>Screen / Digital</td>
+              <td>Print / Physical</td>
+              <td>Web / CSS / HTML</td>
+              <td>Design / Theme Development</td>
+            </tr>
+            <tr>
+              <td>Value Range</td>
+              <td>0-255 per channel</td>
+              <td>0-100% per channel</td>
+              <td>0-9, A-F (Base 16)</td>
+              <td>Hue: 0-360°, S/L: 0-100%</td>
+            </tr>
+            <tr>
+              <td>Transparency Support</td>
+              <td>RGBA (Alpha Channel)</td>
+              <td>Not Supported</td>
+              <td>8-digit Hex (#RRGGBBAA)</td>
+              <td>HSLA (Alpha Channel)</td>
+            </tr>
+            <tr>
+              <td>Native CSS Support</td>
+              <td>✅ Full</td>
+              <td>❌ No</td>
+              <td>✅ Full</td>
+              <td>✅ Full</td>
+            </tr>
+            <tr>
+              <td>Human Intuitiveness</td>
+              <td>Low (Machine Friendly)</td>
+              <td>Medium (Print Expertise)</td>
+              <td>Low (Code Friendly)</td>
+              <td>High (Human Perception)</td>
+            </tr>
+          </table>
+
+          <div style="margin:24px 0; padding:24px; background:var(--bg-elevated); border-radius:var(--radius-lg); border: 1px solid var(--bg-glass-border);">
+            <h4>🎯 Pro Learning Tips</h4>
+            <ul style="line-height:1.8;">
+              <li>Always use RGB/Hex/HSL for digital products → CMYK exclusively for printed materials</li>
+              <li>Never convert CMYK directly to RGB for web (severe color distortion will occur)</li>
+              <li>Hex is the most reliable format for cross-browser consistency in web development</li>
+              <li>HSL is the best choice for building theme systems and responsive color palettes</li>
+              <li>Always check color contrast for accessibility (WCAG 2.1 AA/AAA standards)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 学习资源标签（全面升级） ===================== -->
+      <div id="resources-tab" class="tab-content" style="display: none;">
+        <div class="card">
+          <h3><i class="fas fa-download"></i> Premium Learning Resources (10 Items)</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 24px;">
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>📄 RGB Color Guide (PDF)</h4>
+              <p>Comprehensive guide to RGB color model, including common values and usage in web design.</p>
+              <button onclick="downloadResource('rgb-guide')" class="btn-success">Download (2.4MB)</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>📄 CMYK Printing Handbook (PDF)</h4>
+              <p>Learn about CMYK color calibration and best practices for print design.</p>
+              <button onclick="downloadResource('cmyk-handbook')" class="btn-success">Download (3.1MB)</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>📹 Hex Code Tutorial (Video)</h4>
+              <p>15-minute video tutorial on hexadecimal color codes for beginners.</p>
+              <button onclick="openVideo('hex-tutorial')" class="btn-warning">Watch Now</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>📹 HSL Masterclass (Video)</h4>
+              <p>20-minute deep dive into HSL color model for designers and developers.</p>
+              <button onclick="openVideo('hsl-masterclass')" class="btn-warning">Watch Now</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>🧩 Color Coding Cheat Sheet (PNG)</h4>
+              <p>Printable cheat sheet with common color codes for quick reference.</p>
+              <button onclick="downloadResource('cheat-sheet')" class="btn-success">Download (1.2MB)</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>⚙️ Color Accessibility Guide</h4>
+              <p>WCAG 2.1 contrast standards for visually impaired users.</p>
+              <button onclick="downloadResource('accessibility')" class="btn-success">Download (1.8MB)</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>🎨 Professional Color Palettes</h4>
+              <p>50+ ready-to-use palettes for web & print design.</p>
+              <button onclick="downloadResource('palettes')" class="btn-success">Download (4.2MB)</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>🛠️ Online Color Tools List</h4>
+              <p>Top 15 free color pickers, convertors & testers.</p>
+              <button onclick="showTools()" class="btn-accent">View List</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>📖 Color Theory E-Book</h4>
+              <p>Complete color theory fundamentals for designers and developers.</p>
+              <button onclick="downloadResource('color-theory')" class="btn-success">Download (8.7MB)</button>
+            </div>
+            <div class="card" style="padding: 20px; margin: 0;">
+              <h4>🎬 CSS Color Animation Guide</h4>
+              <p>Learn to create stunning color transitions and animations with CSS.</p>
+              <button onclick="downloadResource('css-animation')" class="btn-success">Download (2.1MB)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 学习进度跟踪（全面升级） ===================== -->
+      <div class="card">
+        <h3><i class="fas fa-tasks"></i> 📚 Your Learning Progress & Achievement</h3>
+        <p>Completed Modules: <span id="completed-modules">0</span>/4</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="learning-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div style="margin-top: 20px; font-size:16px; font-weight:600;">
+          <p>✅ RGB Module: <span id="rgb-status" style="color:var(--danger-500);">Not Completed</span></p>
+          <p>✅ CMYK Module: <span id="cmyk-status" style="color:var(--danger-500);">Not Completed</span></p>
+          <p>✅ Hex Module: <span id="hex-status" style="color:var(--danger-500);">Not Completed</span></p>
+          <p>✅ HSL/HSV Module: <span id="hsl-status" style="color:var(--danger-500);">Not Completed</span></p>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:16px; flex-wrap: wrap;">
+          <button onclick="resetLearningProgress()" class="btn-danger">Reset All Progress</button>
+          <button onclick="refreshLearningProgress()" class="btn-warning">Refresh Progress</button>
+        </div>
+      </div>
+
+      <!-- ===================== 自测小练习（全面升级） ===================== -->
+      <div class="card">
+        <h3><i class="fas fa-brain"></i> 🧠 Professional Quick Check Quiz</h3>
+        <p>Test your understanding of color models with 15 official questions! Unlock the "Color Master" achievement after passing!</p>
+        <button onclick="openQuickQuiz()" class="btn-primary" style="width:100%;">Start Full Quiz (15 Questions)</button>
+        
+        <div id="quiz-container" class="quiz-modal" style="display:none; margin-top:24px;">
+          <h4>Quiz Loading... Complete all modules to unlock full quiz!</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚（与V4.0统一） -->
+    <div class="footer fade-in">© 2026 EBU6305 Group G03 | Learning Module V4.0 | Professional Color Academy | All Rights Reserved</div>
   </div>
 
-  <div class="header">Learning Module | Professional Color Knowledge</div>
+  <!-- 粒子背景画布（全局升级） -->
+  <canvas id="particle-bg"></canvas>
 
-  <div class="content">
-    <div class="card">
-      <h3>RGB Color Model</h3>
-      <p>RGB is composed of Red, Green and Blue. Each channel ranges from 0 to 255.
-      It is the mainstream color mode for electronic screens, web pages and digital images.</p>
-    </div>
+  <script>
+    // =========================
+    // 1. 标签切换逻辑（升级：动画优化）
+    // =========================
+    function switchTab(tabName) {
+      const tabContents = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = 'none';
+      }
+      
+      const tabBtns = document.getElementsByClassName('tab-btn');
+      for (let i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].style.backgroundColor = '';
+        tabBtns[i].style.color = '';
+      }
+      
+      document.getElementById(`${tabName}-tab`).style.display = 'block';
+      event.target.style.backgroundColor = 'var(--accent-500)';
+      event.target.style.color = 'white';
+      // 点击音效
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+    }
 
-    <div class="card">
-      <h3>CMYK Color Model</h3>
-      <p>CMYK includes Cyan, Magenta, Yellow and Key Black.
-      It is mainly used for physical printing, posters, magazines and paper design.</p>
-    </div>
+    // =========================
+    // 2. RGB交互式演示（升级：新增HSL转换）
+    // =========================
+    function updateRGBPreview() {
+      const r = document.getElementById('red').value;
+      const g = document.getElementById('green').value;
+      const b = document.getElementById('blue').value;
+      
+      document.getElementById('red-value').innerText = r;
+      document.getElementById('green-value').innerText = g;
+      document.getElementById('blue-value').innerText = b;
+      
+      const rgbCode = `rgb(${r}, ${g}, ${b})`;
+      document.getElementById('rgb-preview').style.backgroundColor = rgbCode;
+      document.getElementById('rgb-code').innerText = rgbCode;
+      
+      const hex = rgbToHex(r, g, b);
+      document.getElementById('rgb-hex').innerText = hex;
 
-    <div class="card">
-      <h3>Hexadecimal Code</h3>
-      <p>Hex code starts with #, using six digits to convert RGB data.
-      It is the most commonly used color writing method in front-end development.</p>
-    </div>
-  </div>
+      const hsl = rgbToHsl(r, g, b);
+      document.getElementById('rgb-hsl').innerText = hsl;
+    }
 
-  <div class="footer">© 2026 EBU6305 Group G03</div>
-</div>
+    // =========================
+    // 3. CMYK交互式演示（升级：新增RGB转换）
+    // =========================
+    function updateCMYKPreview() {
+      const c = document.getElementById('cyan').value;
+      const m = document.getElementById('magenta').value;
+      const y = document.getElementById('yellow').value;
+      const k = document.getElementById('black').value;
+      
+      document.getElementById('cyan-value').innerText = `${c}%`;
+      document.getElementById('magenta-value').innerText = `${m}%`;
+      document.getElementById('yellow-value').innerText = `${y}%`;
+      document.getElementById('black-value').innerText = `${k}%`;
+      
+      const cmykCode = `CMYK(${c}%, ${m}%, ${y}%, ${k}%)`;
+      document.getElementById('cmyk-code').innerText = cmykCode;
+      
+      const rgb = cmykToRgb(c,m,y,k);
+      const rgbCode = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      document.getElementById('cmyk-preview').style.backgroundColor = rgbCode;
+      document.getElementById('cmyk-rgb').innerText = rgbCode;
+    }
+
+    // =========================
+    // 4. Hex交互式演示（升级：新增HSL转换）
+    // =========================
+    function updateHexPreview() {
+      const hex = document.getElementById('hex-input').value;
+      const hexPattern = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/;
+      if (!hexPattern.test(hex)) return;
+      
+      document.getElementById('hex-preview').style.backgroundColor = hex;
+      const rgb = hexToRgb(hex);
+      document.getElementById('hex-rgb').innerText = rgb;
+      const shortHex = hex.length === 7 ? shortenHex(hex) : hex;
+      document.getElementById('short-hex').innerText = shortHex;
+
+      const rgbValues = rgb.match(/\d+/g);
+      const hsl = rgbToHsl(rgbValues[0], rgbValues[1], rgbValues[2]);
+      document.getElementById('hex-hsl').innerText = hsl;
+    }
+
+    // =========================
+    // 5. 新增：HSL交互式演示
+    // =========================
+    function updateHSLPreview() {
+      const h = document.getElementById('hue').value;
+      const s = document.getElementById('saturation').value;
+      const l = document.getElementById('lightness').value;
+      
+      document.getElementById('hue-value').innerText = `${h}°`;
+      document.getElementById('saturation-value').innerText = `${s}%`;
+      document.getElementById('lightness-value').innerText = `${l}%`;
+      
+      const hslCode = `hsl(${h}, ${s}%, ${l}%)`;
+      document.getElementById('hsl-preview').style.backgroundColor = hslCode;
+      document.getElementById('hsl-code').innerText = hslCode;
+
+      const rgb = hslToRgb(h, s, l);
+      const rgbCode = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      document.getElementById('hsl-rgb').innerText = rgbCode;
+      document.getElementById('hsl-hex').innerText = rgbToHex(rgb.r, rgb.g, rgb.b);
+    }
+
+    // =========================
+    // 核心颜色转换工具函数（全量升级）
+    // =========================
+    function rgbToHex(r, g, b) {
+      const toHex = (x) => {
+        const hex = parseInt(x).toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      };
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+    }
+
+    function hexToRgb(hex) {
+      let r, g, b;
+      if (hex.length === 4) {
+        r = parseInt(hex[1] + hex[1], 16);
+        g = parseInt(hex[2] + hex[2], 16);
+        b = parseInt(hex[3] + hex[3], 16);
+      } else if (hex.length === 7) {
+        r = parseInt(hex[1] + hex[2], 16);
+        g = parseInt(hex[3] + hex[4], 16);
+        b = parseInt(hex[5] + hex[6], 16);
+      } else if (hex.length === 9) {
+        r = parseInt(hex[1] + hex[2], 16);
+        g = parseInt(hex[3] + hex[4], 16);
+        b = parseInt(hex[5] + hex[6], 16);
+      }
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function shortenHex(hex) {
+      if (hex[1] === hex[2] && hex[3] === hex[4] && hex[5] === hex[6]) {
+        return `#${hex[1]}${hex[3]}${hex[5]}`;
+      }
+      return hex;
+    }
+
+    function cmykToRgb(c,m,y,k) {
+      const r = 255 * (1 - c/100) * (1 - k/100);
+      const g = 255 * (1 - m/100) * (1 - k/100);
+      const b = 255 * (1 - y/100) * (1 - k/100);
+      return {r:Math.round(r),g:Math.round(g),b:Math.round(b)};
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255;
+      g /= 255;
+      b /= 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+    }
+
+    function hslToRgb(h, s, l) {
+      h /= 360;
+      s /= 100;
+      l /= 100;
+      let r, g, b;
+
+      if (s === 0) {
+        r = g = b = l;
+      } else {
+        const hue2rgb = (p, q, t) => {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1/6) return p + (q - p) * 6 * t;
+          if (t < 1/2) return q;
+          if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+        };
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+      }
+      return {r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255)};
+    }
+
+    // =========================
+    // 新增：屏幕颜色拾取器
+    // =========================
+    async function openColorPicker(type) {
+      if (!window.EyeDropper) {
+        alert('❌ Your browser does not support the color picker feature. Please use the latest Chrome/Edge browser.');
+        return;
+      }
+      try {
+        const eyeDropper = new EyeDropper();
+        const result = await eyeDropper.open();
+        const hex = result.sRGBHex;
+
+        if (type === 'rgb') {
+          const rgbValues = hexToRgb(hex).match(/\d+/g);
+          document.getElementById('red').value = rgbValues[0];
+          document.getElementById('green').value = rgbValues[1];
+          document.getElementById('blue').value = rgbValues[2];
+          updateRGBPreview();
+        } else if (type === 'hex') {
+          document.getElementById('hex-input').value = hex;
+          updateHexPreview();
+        }
+
+        // 成功音效
+        if (audioConfig.enabled) audioConfig.success.play().catch(() => {});
+      } catch (e) {
+        console.log('Color picker cancelled');
+      }
+    }
+
+    // =========================
+    // 学习进度管理（升级：新增HSL模块）
+    // =========================
+    function markAsLearned(module) {
+      localStorage.setItem(`${module}-learned`, 'true');
+      updateLearningProgress();
+      // 成功音效
+      if (audioConfig.enabled) audioConfig.success.play().catch(() => {});
+      alert(`✅ ${module.toUpperCase()} module marked as learned! Keep going!`);
+    }
+
+    function updateLearningProgress() {
+      const rgbLearned = localStorage.getItem('rgb-learned') === 'true';
+      const cmykLearned = localStorage.getItem('cmyk-learned') === 'true';
+      const hexLearned = localStorage.getItem('hex-learned') === 'true';
+      const hslLearned = localStorage.getItem('hsl-learned') === 'true';
+      
+      const statusColor = (status) => status ? 'var(--success-500)' : 'var(--danger-500)';
+      const statusText = (status) => status ? 'Completed ✅' : 'Not Completed';
+      
+      document.getElementById('rgb-status').innerText = statusText(rgbLearned);
+      document.getElementById('rgb-status').style.color = statusColor(rgbLearned);
+      document.getElementById('cmyk-status').innerText = statusText(cmykLearned);
+      document.getElementById('cmyk-status').style.color = statusColor(cmykLearned);
+      document.getElementById('hex-status').innerText = statusText(hexLearned);
+      document.getElementById('hex-status').style.color = statusColor(hexLearned);
+      document.getElementById('hsl-status').innerText = statusText(hslLearned);
+      document.getElementById('hsl-status').style.color = statusColor(hslLearned);
+      
+      const completed = [rgbLearned, cmykLearned, hexLearned, hslLearned].filter(Boolean).length;
+      const progress = (completed / 4) * 100;
+      
+      document.getElementById('completed-modules').innerText = completed;
+      document.getElementById('learning-progress-fill').style.width = `${progress}%`;
+      localStorage.setItem('learning-progress', progress);
+    }
+
+    function resetLearningProgress() {
+      if (confirm('Are you sure you want to reset your learning progress? This action cannot be undone.')) {
+        localStorage.removeItem('rgb-learned');
+        localStorage.removeItem('cmyk-learned');
+        localStorage.removeItem('hex-learned');
+        localStorage.removeItem('hsl-learned');
+        localStorage.removeItem('learning-progress');
+        updateLearningProgress();
+        alert("🔄 Progress reset successfully!");
+      }
+    }
+
+    function refreshLearningProgress() {
+      updateLearningProgress();
+      alert("🔄 Progress refreshed!");
+    }
+
+    // =========================
+    // 资源功能（升级）
+    // =========================
+    function downloadResource(resourceName) {
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+      alert(`📥 Downloading ${resourceName}...\nDownload started successfully!`);
+    }
+    function openVideo(videoName) {
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+      alert(`🎬 Opening ${videoName}...\nVideo playing in new window!`);
+    }
+    function showTools() {
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+      alert(`🛠️ Top Professional Color Tools:\n1. Adobe Color\n2. Coolors.co\n3. WebAIM Contrast Checker\n4. HTML Color Picker\n5. HSL Color Picker\n6. Figma Color Plugin\n7. Paletton\n8. Color Hex\n9. BrandColors\n10. Canva Color Wheel\n11. CSS Gradient\n12. Color Hunt\n13. Material Design Palette\n14. Tailwind CSS Colors\n15. Pantone Color Finder`);
+    }
+
+    // =========================
+    // 完整测验（升级：15题）
+    // =========================
+    function openQuickQuiz() {
+      if (audioConfig.enabled) audioConfig.click.play().catch(() => {});
+      document.getElementById('quiz-container').style.display = 'block';
+      document.getElementById('quiz-container').innerHTML = `
+        <h4>🎯 Color Master Quiz (15 Questions)</h4>
+        <p>1. What color model is used for printing?</p>
+        <p>2. What does K stand for in CMYK?</p>
+        <p>3. What is the hex code for pure white?</p>
+        <p>4. How many channels are in an RGB color?</p>
+        <p>5. What is the range of RGB channels?</p>
+        <p>6. What does HSL stand for?</p>
+        <p>7. What is the range of Hue in HSL?</p>
+        <p>8. Which color model is most human-friendly for design?</p>
+        <p>9. What is the short hex code for #FF0000?</p>
+        <p>10. Which color model uses subtractive color mixing?</p>
+        <p>11. What does RGBA's A stand for?</p>
+        <p>12. What is the standard DPI for high-quality printing?</p>
+        <p>13. Which color format has native CSS support?</p>
+        <p>14. What is 0° Hue in HSL?</p>
+        <p>15. What is the WCAG standard for color accessibility?</p>
+        <p style="margin-top: 20px; font-weight: 600;">Complete all 4 modules to unlock the full interactive quiz with scoring!</p>
+      `;
+    }
+
+    // =========================
+    // 复制文本功能（升级：音效）
+    // =========================
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text);
+      // 复制成功音效
+      if (audioConfig.enabled) audioConfig.success.play().catch(() => {});
+      alert(`✅ Copied to clipboard: ${text}`);
+    }
+
+    // =========================
+    // 全局功能：深色模式、主题、音效
+    // =========================
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      const icon = document.getElementById('dark-icon');
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+      localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
+    }
+
+    function openThemePicker() {
+      const themes = [
+        { name: 'Classic Blue', color: '#3b82f6' },
+        { name: 'Dream Purple', color: '#8b5cf6' },
+        { name: 'Vibrant Red', color: '#ef4444' },
+        { name: 'Forest Green', color: '#22c55e' },
+        { name: 'Sunset Orange', color: '#f59e0b' },
+        { name: 'Pink Rose', color: '#ec4899' },
+      ];
+      let themeHTML = 'Choose your theme (enter number):\n';
+      themes.forEach((t, i) => themeHTML += `${i+1}. ${t.name}\n`);
+      const choice = prompt(themeHTML);
+      if (choice && themes[choice-1]) {
+        setCustomTheme(themes[choice-1].color);
+        alert(`✅ Theme changed to ${themes[choice-1].name}!`);
+      }
+    }
+
+    function setCustomTheme(primaryColor) {
+      const root = document.documentElement;
+      root.style.setProperty('--accent-500', primaryColor);
+      localStorage.setItem('custom-theme', primaryColor);
+    }
+
+    const audioConfig = {
+      enabled: localStorage.getItem('audio-enabled') !== 'false',
+      click: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'),
+      success: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'),
+      error: new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT')
+    };
+
+    function toggleAudio() {
+      audioConfig.enabled = !audioConfig.enabled;
+      localStorage.setItem('audio-enabled', audioConfig.enabled);
+      const icon = document.getElementById('audio-icon');
+      icon.classList.toggle('fa-volume-up');
+      icon.classList.toggle('fa-volume-mute');
+    }
+
+    // =========================
+    // 粒子背景特效
+    // =========================
+    const canvas = document.getElementById('particle-bg');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = getComputedStyle(document.documentElement).getPropertyValue('--accent-400').trim() || '#60a5fa';
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 80; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    // =========================
+    // 3D卡片鼠标跟随效果
+    // =========================
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.classList.add('card-3d');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width;
+          const y = (e.clientY - rect.top) / rect.height;
+          card.style.setProperty('--mouse-x', x);
+          card.style.setProperty('--mouse-y', y);
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.setProperty('--mouse-x', 0.5);
+          card.style.setProperty('--mouse-y', 0.5);
+        });
+      });
+    });
+
+    // =========================
+    // 页面初始化
+    // =========================
+    window.onload = function() {
+      // 恢复深色模式
+      if(localStorage.getItem('dark-mode') === 'true'){
+        document.body.classList.add('dark');
+        document.getElementById('dark-icon').classList.replace('fa-moon','fa-sun');
+      }
+      // 恢复音效设置
+      if(localStorage.getItem('audio-enabled') === 'false'){
+        document.getElementById('audio-icon').classList.replace('fa-volume-up','fa-volume-mute');
+      }
+      // 恢复自定义主题
+      const customTheme = localStorage.getItem('custom-theme');
+      if(customTheme) setCustomTheme(customTheme);
+      
+      // 初始化所有演示器
+      updateRGBPreview();
+      updateCMYKPreview();
+      updateHexPreview();
+      updateHSLPreview();
+      updateLearningProgress();
+    };
+  </script>
 </body>
 </html>
