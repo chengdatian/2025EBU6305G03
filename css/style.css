@@ -1,75 +1,836 @@
-/* 全局统一样式 - G03 v1 版本，全组共用 */
-* {
+/* =========================
+   史诗级升级：COLOR CODING V4.0 设计令牌系统
+   新增：3D视觉变量、霓虹渐变、金属质感、多主题系统、物理级动画
+========================= */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
-
+html {
+  scroll-behavior: smooth;
+}
+/* =========================
+   核心设计令牌 V4.0 全量升级
+========================= */
+:root {
+  /* 主色阶系统 - 新增渐变色阶 */
+  --primary-900: #020617;
+  --primary-700: #0f172a;
+  --primary-500: #1e293b;
+  --accent-900: #1d4ed8;
+  --accent-700: #2563eb;
+  --accent-500: #3b82f6;
+  --accent-400: #60a5fa;
+  --accent-300: #93c5fd;
+  --accent-200: #bfdbfe;
+  /* 功能色系统 - 新增发光色 */
+  --danger-500: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.6);
+  --success-500: #22c55e;
+  --success-glow: rgba(34, 197, 94, 0.6);
+  --warning-500: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.6);
+  --neutral-500: #64748b;
+  /* 背景系统 - 新增3D分层背景 */
+  --bg-base: #f1f5f9;
+  --bg-layer: #ffffff;
+  --bg-elevated: rgba(255, 255, 255, 0.85);
+  --bg-overlay: rgba(15, 23, 42, 0.1);
+  --bg-glass: rgba(255, 255, 255, 0.25);
+  --bg-glass-border: rgba(255, 255, 255, 0.4);
+  /* 文字系统 */
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #f8fafc;
+  --text-glow: rgba(59, 130, 246, 0.8);
+  /* 阴影系统 - 新增3D阴影、发光阴影、内阴影 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 25px 60px rgba(0, 0, 0, 0.18);
+  --shadow-xl: 0 50px 120px rgba(0, 0, 0, 0.25);
+  --shadow-3d: 0 10px 0px rgba(59, 130, 246, 0.3), 0 20px 40px rgba(0,0,0,0.2);
+  --shadow-glow-accent: 0 0 20px var(--text-glow);
+  --shadow-glow-success: 0 0 20px var(--success-glow);
+  --shadow-glow-warning: 0 0 20px var(--warning-glow);
+  --shadow-glow-danger: 0 0 20px var(--danger-glow);
+  --inner-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+  /* 圆角系统 */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-full: 999px;
+  /* 动画系统 - 物理级缓动函数升级 */
+  --ease-out: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: 0.2s var(--ease-out);
+  --transition: 0.35s var(--ease-out);
+  --transition-slow: 0.5s var(--ease-out);
+  --transition-bounce: 0.5s var(--ease-bounce);
+  /* 渐变系统 - 史诗级升级 */
+  --gradient-main: linear-gradient(135deg, #3b82f6, #6366f1);
+  --gradient-main-reverse: linear-gradient(135deg, #6366f1, #3b82f6);
+  --gradient-success: linear-gradient(135deg, #22c55e, #10b981);
+  --gradient-warning: linear-gradient(135deg, #f59e0b, #fbbf24);
+  --gradient-danger: linear-gradient(135deg, #ef4444, #f87171);
+  --gradient-purple: linear-gradient(135deg, #8b5cf6, #ec4899);
+  --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+  --gradient-silver: linear-gradient(135deg, #f8fafc, #cbd5e1, #94a3b8);
+  --gradient-bronze: linear-gradient(135deg, #fb923c, #ea580c, #9a3412);
+  --gradient-bg: linear-gradient(180deg, var(--bg-base), #e2e8f0);
+  --gradient-bg-dark: linear-gradient(180deg, #020617, #0f172a, #1e293b);
+  --gradient-neon: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+  /* 3D变换变量 */
+  --perspective: 1000px;
+  --rotateX: 0deg;
+  --rotateY: 0deg;
+}
+/* =========================
+   深色模式 V4.0 全面升级 - 新增霓虹发光效果
+========================= */
+body.dark {
+  --bg-base: #020617;
+  --bg-layer: #0f172a;
+  --bg-elevated: rgba(30, 41, 59, 0.85);
+  --bg-overlay: rgba(0, 0, 0, 0.3);
+  --bg-glass: rgba(30, 41, 59, 0.25);
+  --bg-glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-light: #f8fafc;
+  --gradient-bg: var(--gradient-bg-dark);
+}
+/* =========================
+   全局基础样式升级
+========================= */
 body {
-  background-color: #f0f0f0;
-  padding: 20px;
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  background: var(--gradient-bg);
+  color: var(--text-main);
+  transition: var(--transition);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
-
-/* 全局容器 - 沿用你数学小游戏的绿色框架 */
+/* 新增：全局粒子背景容器 */
+#particle-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+/* =========================
+   布局系统升级
+========================= */
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  background-color: #90EE90; /* 浅绿色背景，和你之前的游戏界面一致 */
-  padding: 20px;
-  border-radius: 8px;
+  padding: 0 20px;
 }
-
-/* 导航栏样式 */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+/* =========================
+   导航栏 V4.0 史诗级升级 - 3D悬浮+霓虹高亮+毛玻璃Pro
+========================= */
 .navbar {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
+  position: sticky;
+  top: 12px;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--bg-glass-border);
+  box-shadow: var(--shadow-lg);
+  margin: 20px 0;
+  transform-style: preserve-3d;
+  animation: navFloat 6s ease-in-out infinite;
 }
-
+@keyframes navFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
 .navbar a {
-  display: inline-block;
-  margin: 0 10px;
-  padding: 10px 20px;
-  background-color: #ff0000; /* 红色按钮，和你之前的数字按钮一致 */
-  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
   text-decoration: none;
-  border-radius: 25px; /* 圆形按钮，风格统一 */
-  font-weight: bold;
+  color: var(--text-main);
+  font-weight: 600;
+  transition: var(--transition-bounce);
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
 }
-
+.navbar a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-neon);
+  background-size: 200% 100%;
+  transition: var(--transition);
+  z-index: -1;
+  animation: neonShine 3s linear infinite;
+}
+@keyframes neonShine {
+  0% { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
 .navbar a:hover {
-  background-color: #cc0000;
+  transform: translateY(-3px) scale(1.05);
+  color: white;
+  box-shadow: var(--shadow-glow-accent);
 }
-
-/* 标题栏样式 */
+.navbar a:hover::before {
+  left: 0;
+}
+.navbar a.active {
+  background: var(--gradient-main);
+  color: white !important;
+  box-shadow: var(--shadow-md), var(--shadow-glow-accent);
+  transform: translateY(-2px);
+}
+/* =========================
+   标题样式 V4.0 升级 - 渐变文字+霓虹发光+打字机动画
+========================= */
 .header {
-  background-color: #fff;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 900;
+  background: var(--gradient-neon);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 40px 0 24px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  animation: gradientShift 4s linear infinite, textFloat 3s ease-in-out infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes textFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+/* =========================
+   卡片组件 V4.0 史诗级升级 - 3D悬浮+玻璃拟态Pro+光影分层
+========================= */
+.card {
+  position: relative;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--bg-glass-border);
+  box-shadow: var(--shadow-md);
+  overflow: visible;
+  transition: var(--transition-bounce);
+  margin-bottom: 24px;
+  z-index: 1;
+  transform-style: preserve-3d;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-lg);
+  background: var(--gradient-main);
+  z-index: -1;
+  opacity: 0;
+  transition: var(--transition);
+  filter: blur(10px);
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.02) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+  box-shadow: var(--shadow-xl), var(--shadow-glow-accent);
+  border-color: var(--accent-400);
+}
+.card:hover::before {
+  opacity: 0.6;
+}
+/* 卡片3D鼠标跟随效果 */
+.card-3d:hover {
+  --rotateX: calc((var(--mouse-y) - 0.5) * -5deg);
+  --rotateY: calc((var(--mouse-x) - 0.5) * 5deg);
+}
+/* =========================
+   按钮系统 V4.0 全面升级 - 3D按压+霓虹发光+粒子爆炸效果
+========================= */
+button,
+.btn,
+.btn-primary,
+.btn-success,
+.btn-warning,
+.btn-danger,
+.btn-accent {
+  padding: 12px 28px !important;
+  border-radius: var(--radius-md) !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  transition: var(--transition-bounce) !important;
+  box-shadow: var(--shadow-sm) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  margin: 6px !important;
+  color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transform-style: preserve-3d;
+}
+/* 按钮点击3D按压效果 */
+button:active,
+.btn:active {
+  transform: scale(0.95) translateY(2px) !important;
+  box-shadow: var(--shadow-xs) !important;
+}
+/* 按钮光泽扫过效果 */
+button::after,
+.btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  transform: rotate(30deg) translateX(-100%);
+  transition: 0.6s var(--ease-out);
+  z-index: -1;
+}
+button:hover::after,
+.btn:hover::after {
+  transform: rotate(30deg) translateX(100%);
+}
+/* 按钮hover发光悬浮效果 */
+button:hover,
+.btn:hover {
+  transform: translateY(-4px) scale(1.05) !important;
+}
+/* 按钮配色升级 - 新增发光效果 */
+.btn,
+.btn-primary,
+.btn-accent {
+  background: var(--gradient-main) !important;
+}
+.btn:hover,
+.btn-primary:hover,
+.btn-accent:hover {
+  box-shadow: var(--shadow-md), var(--shadow-glow-accent) !important;
+}
+.btn-success {
+  background: var(--gradient-success) !important;
+}
+.btn-success:hover {
+  box-shadow: var(--shadow-md), var(--shadow-glow-success) !important;
+}
+.btn-warning {
+  background: var(--gradient-warning) !important;
+}
+.btn-warning:hover {
+  box-shadow: var(--shadow-md), var(--shadow-glow-warning) !important;
+}
+.btn-danger {
+  background: var(--gradient-danger) !important;
+}
+.btn-danger:hover {
+  box-shadow: var(--shadow-md), var(--shadow-glow-danger) !important;
+}
+/* 禁用态 */
+button:disabled,
+.btn:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  filter: grayscale(0.8);
+}
+/* =========================
+   选项卡/标签按钮 升级
+========================= */
+.tab-btn,
+.comm-tab,
+.sup-tab,
+.game-tab-btn {
+  padding: 14px 28px !important;
+  border: none !important;
+  border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(10px);
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: var(--transition-bounce) !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  margin-right: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.tab-btn:hover,
+.comm-tab:hover,
+.sup-tab:hover,
+.game-tab-btn:hover {
+  transform: translateY(-3px) !important;
+  color: white !important;
+  background: var(--accent-400) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+.tab-btn.active,
+.comm-tab.active,
+.sup-tab.active,
+.game-tab-btn.active {
+  background: var(--gradient-main) !important;
+  color: white !important;
+  box-shadow: var(--shadow-glow-accent) !important;
+  transform: translateY(-2px) !important;
+}
+/* =========================
+   表单系统 升级
+========================= */
+.form-group {
+  position: relative;
+  margin: 24px 0;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  color: var(--text-main);
+  font-size: 15px;
+  transition: var(--transition);
+  outline: none;
+  z-index: 1;
+  box-shadow: var(--inner-shadow);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent-500);
+  box-shadow: var(--inner-shadow), var(--shadow-glow-accent);
+}
+.form-group label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  color: var(--text-muted);
+  transition: var(--transition);
+  background: var(--bg-layer);
+  padding: 0 6px;
+  z-index: 2;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 12px;
+  font-size: 12px;
+  color: var(--accent-500);
+}
+/* =========================
+   进度条 史诗级升级 - 渐变填充+发光动画+条纹流动
+========================= */
+.progress-bar {
+  width: 100%;
+  height: 28px;
+  background: var(--bg-overlay);
+  border-radius: var(--radius-full);
+  margin: 20px 0;
+  overflow: hidden;
+  box-shadow: var(--inner-shadow);
+  border: 1px solid var(--bg-glass-border);
+}
+.progress-fill {
+  height: 100%;
+  background: var(--gradient-neon);
+  background-size: 200% 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s var(--ease-bounce);
+  animation: progressAnim 1s ease forwards, gradientShift 3s linear infinite, stripeFlow 2s linear infinite;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-glow-accent);
+}
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.3) 50%,
+    transparent 100%
+  );
+  background-size: 30px 100%;
+  animation: stripeFlow 2s linear infinite;
+}
+@keyframes stripeFlow {
+  0% { background-position: 0 0; }
+  100% { background-position: 30px 0; }
+}
+/* =========================
+   排行榜表格 升级
+========================= */
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+}
+.leaderboard th {
+  background: var(--gradient-main);
+  color: white;
+  padding: 18px 14px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+.leaderboard td {
+  padding: 16px 14px;
+  border-bottom: 1px solid var(--bg-overlay);
+  text-align: center;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.leaderboard tr:hover td {
+  background: var(--bg-overlay);
+  transform: scale(1.01);
+}
+/* 排行榜TOP3专属样式升级 */
+.rank-1 { 
+  background: var(--gradient-gold) !important; 
+  color: var(--primary-900) !important;
+  animation: rankPulse 2s ease-in-out infinite;
+}
+.rank-2 { 
+  background: var(--gradient-silver) !important; 
+  color: var(--primary-900) !important;
+}
+.rank-3 { 
+  background: var(--gradient-bronze) !important; 
+  color: white !important;
+}
+.top3 {
+  font-weight: 800;
+  font-size: 18px;
+}
+@keyframes rankPulse {
+  0%,100% { box-shadow: 0 0 10px rgba(251, 191, 36, 0.6); }
+  50% { box-shadow: 0 0 30px rgba(251, 191, 36, 1); }
+}
+/* =========================
+   动画系统 全面升级
+========================= */
+.fade-in {
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+.fade-in-1 { animation-delay: 0.1s; }
+.fade-in-2 { animation-delay: 0.2s; }
+.fade-in-3 { animation-delay: 0.3s; }
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* 数字滚动动画 */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.count-animate {
+  animation: countUp 0.5s ease forwards;
+  display: inline-block;
+}
+/* =========================
+   成就卡片 升级
+========================= */
+.achievement-card {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--bg-glass-border);
+  transition: var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+}
+.achievement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-main);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+}
+.achievement-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-accent);
+  color: white;
+  border-color: var(--accent-400);
+}
+.achievement-card:hover::before {
+  opacity: 1;
+}
+/* 锁定状态成就 */
+.achievement-locked {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+.achievement-locked::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  z-index: 2;
+}
+/* =========================
+   分享卡片/动态列表 升级
+========================= */
+.share-card {
+  margin: 16px 0;
   padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
+  border-left: 5px solid var(--accent-500);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  transition: var(--transition-bounce);
+  border: 1px solid var(--bg-glass-border);
 }
-
-/* 内容区样式 */
-.content {
-  background-color: #fff;
+.share-card:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md), var(--shadow-glow-accent);
+  border-color: var(--accent-400);
+}
+.activity-list {
+  list-style: none;
+  padding: 0;
+}
+.activity-list li {
+  padding: 16px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  margin: 10px 0;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--success-500);
+  transition: var(--transition);
+  border: 1px solid var(--bg-glass-border);
+}
+.activity-list li:hover {
+  transform: translateX(5px);
+  box-shadow: var(--shadow-sm);
+}
+/* =========================
+   颜色盒子/游戏区域 升级
+========================= */
+.color-box {
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius-lg);
+  margin: 24px auto;
+  border: 4px solid var(--accent-500);
+  box-shadow: var(--shadow-md), var(--shadow-glow-accent);
+  transition: var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+}
+.color-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+  border-radius: var(--radius-lg);
+}
+.color-box:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: var(--shadow-xl), var(--shadow-glow-accent);
+}
+.game-area {
+  text-align: center;
   padding: 30px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 1.5rem;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  margin: 16px 0;
+  border: 1px solid var(--bg-glass-border);
 }
-
-/* 底部样式 */
+.game-stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  margin-top: 24px;
+  font-weight: 700;
+  border: 1px solid var(--bg-glass-border);
+  box-shadow: var(--inner-shadow);
+}
+/* =========================
+   页脚 升级
+========================= */
 .footer {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
   text-align: center;
-  font-size: 1rem;
+  padding: 32px;
+  background: var(--gradient-main);
+  color: var(--text-light);
+  border-radius: var(--radius-lg);
+  margin-top: 80px;
+  font-size: 15px;
+  box-shadow: var(--shadow-xl), var(--shadow-glow-accent);
+  position: relative;
+  overflow: hidden;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-neon);
+  background-size: 200% 100%;
+  animation: gradientShift 6s linear infinite;
+  z-index: -1;
+}
+.footer a {
+  color: white;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.footer a:hover {
+  color: var(--accent-200);
+}
+/* =========================
+   FAQ手风琴 新增
+========================= */
+.faq-item {
+  padding: 20px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-md);
+  margin: 12px 0;
+  border-left: 4px solid var(--accent-500);
+  border: 1px solid var(--bg-glass-border);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.faq-item:hover {
+  box-shadow: var(--shadow-sm);
+}
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease-out);
+}
+.faq-item.active .faq-content {
+  max-height: 500px;
+  margin-top: 12px;
+}
+/* =========================
+   无障碍模式 兼容升级
+========================= */
+body.contrast-mode {
+  filter: contrast(180%);
+}
+body.font-large {
+  font-size: 1.2em;
+  line-height: 1.8;
+}
+body.color-blind-mode {
+  filter: url(#color-blind-filter);
+}
+/* =========================
+   修复：确保所有元素可点击
+========================= */
+* {
+  pointer-events: auto !important;
+}
+/* =========================
+   响应式极致优化
+========================= */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .navbar {
+    padding: 10px;
+    gap: 4px;
+  }
+  .navbar a {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .header {
+    font-size: 32px;
+    margin: 20px 0;
+  }
+  .card {
+    padding: 20px;
+  }
+  .color-box {
+    width: 180px;
+    height: 180px;
+  }
 }
